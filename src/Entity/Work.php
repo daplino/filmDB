@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\WorkRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\Crew;
 
 /**
  * @ORM\Entity(repositoryClass=WorkRepository::class)
@@ -26,6 +27,16 @@ class Work
      * @ORM\Column(type="integer", nullable=true)
      */
     private $YearOfCopyright;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Crew", mappedBy="work")
+     */
+    private $crew;
+
+    public function __construct()
+    {
+        $this->crew = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,4 +73,23 @@ class Work
 
         return $this;
     }
+
+    /**
+     * @return Collection|Crew[]
+     */
+    public function getCrew(): Collection
+    {
+        return $this->crew;
+    }
+
+    public function addCrew(Crew $crew): self
+    {
+        if(!$this->crew->contains($crew)){
+            $this->crew[] = $crew;
+            $crew->setWork($this);
+        }
+
+        return $this;
+    }
+    
 }

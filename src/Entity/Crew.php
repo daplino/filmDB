@@ -28,9 +28,10 @@ class Crew
     private $person;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Work", inversedBy="crew")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $n;
+    private $work;
 
     public function getId(): ?int
     {
@@ -61,14 +62,14 @@ class Crew
         return $this;
     }
 
-    public function getN(): ?string
+    public function getWork(): ?Work
     {
-        return $this->n;
+        return $this->work;
     }
 
-    public function setN(string $n): self
+    public function setN(Work $work): self
     {
-        $this->n = $n;
+        $this->work = $work;
 
         return $this;
     }
