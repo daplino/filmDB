@@ -2,6 +2,10 @@
 
 {% block body %}
 
-    <h1>Create Film</h1>
-    {{ form(formFilm)}}
+    {{ form_start(form) }}
+        {{ form_row(form.title)}}
+       
+            
+   
+    {{ form_end(form) }}
 {% endblock %}

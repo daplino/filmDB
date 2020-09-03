@@ -31,7 +31,7 @@ class CsvImportCommand extends Command
     public function __construct(EntityManagerInterface $em)
     {
         parent::__construct();
-
+//php bin/console csv:import;
         $this->em = $em;
     }
 

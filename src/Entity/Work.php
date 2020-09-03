@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\WorkRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\Crew;
+use App\Entity\Crew;
 
 /**
  * @ORM\Entity(repositoryClass=WorkRepository::class)
@@ -12,7 +13,7 @@ use App\Repository\Crew;
 class Work
 {
     /**
-     * @ORM\id()
+     * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -43,9 +44,9 @@ class Work
         return $this->id;
     }
 
-    public function setId(string $Id): self
+    public function setId(string $id): self
     {
-        $this->Id = $Id;
+        $this->id = $id;
 
         return $this;
     }
@@ -74,10 +75,8 @@ class Work
         return $this;
     }
 
-    /**
-     * @return Collection|Crew[]
-     */
-    public function getCrew(): Collection
+    
+    public function getCrew()
     {
         return $this->crew;
     }

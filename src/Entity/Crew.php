@@ -67,7 +67,7 @@ class Crew
         return $this->work;
     }
 
-    public function setN(Work $work): self
+    public function setWork(Work $work): self
     {
         $this->work = $work;
 

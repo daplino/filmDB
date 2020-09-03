@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Work;
+use App\Entity\Crew;
+use App\Repository\CrewRepository;
+use App\Form\WorkType;
 
 class FilmController extends AbstractController
 {
@@ -29,7 +32,13 @@ class FilmController extends AbstractController
     * @Route("/", name="home")
     */
     public function home() {
-        return $this->render('film/home.html.twig');
+        $repo = $this->getDoctrine()->getRepository(Work::class);
+
+        $works = $repo->findAll();
+        return $this->render('film/home.html.twig', [
+        'controller_name' => 'FilmController',
+            'works' => $works
+    ]);
 
     }
 
@@ -37,14 +46,10 @@ class FilmController extends AbstractController
     *  @Route("/film/new", name="film_create")
     *  @Route("/film/{id}/edit", name="film_edit")
     */
-    public function create(Work $work = null, Request $request, ObjectManager $manager) {
+    public function create(Work $work = null, Request $request, ObjectManager $manager, CrewRepository $crewRepository) {
 
-        $form = $this->createFormBuilder($work)
-                     ->add('title')
-                     ->add('yearOfCopyright')
-                     ->add('id')
-                     ->add('save', SubmitType::class)
-                     ->getForm();
+        
+        $form = $this->createForm(WorkType::class, $work);
         
         $form->handleRequest($request);
 
@@ -54,10 +59,26 @@ class FilmController extends AbstractController
         $manager->flush();
 
         }
-                     
+                
         return $this->render('film/create.html.twig', [
-            'formFilm' => $form->createView()
+            'form' => $form->createView()
         ]);
+    }
+
+    /**
+    * @Route("/test", name="test")
+    */
+    public function test() {
+        $token  = new \Tmdb\ApiToken('809df446f9ffd1e82b2d84cfbbddd7df');
+        $client = new \Tmdb\Client($token);
+                $repository = new \Tmdb\Repository\MovieRepository($client);
+        $movie      = $repository->load(5503);
+        
+        //$movie->getTitle(); 
+        return $this->render('film/home.html.twig',
+        ['movie'=>$movie]);            
+                
+
     }
 
 }
