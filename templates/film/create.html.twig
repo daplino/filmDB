@@ -4,8 +4,19 @@
 
     {{ form_start(form) }}
         {{ form_row(form.title)}}
-       
-            
-   
+        <div class="col-sm-8" id="crew_list" data-prototype="{{ form_widget(form.crew.vars.prototype)|e('html_attr')}}" >
+        {% for row in form.crew %}
+            <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <strong>{{ row.vars.value.role }}</strong>
+                        <input value={{ row.vars.value.role }}>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_row(row) }}
+                    </div>
+                </div>
+        {% endfor %}
+        </div>
+        <button type="submit"> Ajouter</button>
     {{ form_end(form) }}
 {% endblock %}

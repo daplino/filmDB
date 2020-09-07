@@ -9,8 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Work;
 use App\Entity\Crew;
+use App\Entity\Film;
 use App\Repository\CrewRepository;
 use App\Form\WorkType;
+use App\Form\FilmType;
 
 class FilmController extends AbstractController
 {
@@ -47,10 +49,22 @@ class FilmController extends AbstractController
     *  @Route("/film/{id}/edit", name="film_edit")
     */
     public function create(Work $work = null, Request $request, ObjectManager $manager, CrewRepository $crewRepository) {
+        
 
+        if($work != null){
+            $worktype = $work->getType();
+        }
+        else{
+            $worktype = "Film";
+            $work = new Film;
+        }
+
+        $form = $this->createForm(WorkType::class, $work, array(
+            'workType' => $worktype,
+        ));
         
-        $form = $this->createForm(WorkType::class, $work);
         
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){

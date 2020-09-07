@@ -2,26 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Crew;
+use App\Entity\VideoGame;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CrewType extends AbstractType
+class VideoGameType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('role')
-            ->add('person')
+            ->add('Title')
+            ->add('YearOfCopyright')
+            
         ;
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Crew::class,
+            'data_class' => VideoGame::class,
+            'inherit_data' => true,
         ]);
     }
 }

@@ -12,6 +12,9 @@ class WorkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $workType = $options['workType'];
+
         $builder
             ->add('title')
             ->add('yearOfCopyright')
@@ -24,17 +27,30 @@ class WorkType extends AbstractType
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true
-                ]
-               
-            )
+                ]   
+            );
+            echo('workTypes');
+            switch($workType){
+                case 'Film':
+                $builder->add('bar', FilmType::class,[
+                    'data_class' => Work::class,
+                ]);
+                break;
+
+                case "VideoGame":
+                $builder->add('bar', VideoGameType::class,[
+                    'data_class' => Work::class,
+                ]);
+                break;
+            }
             
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Work::class,
+            'workType' => null,
         ]);
     }
 }

@@ -2,26 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Crew;
+use App\Entity\Film;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CrewType extends AbstractType
+class FilmType extends WorkType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('role')
-            ->add('person')
+            ->add('length')
         ;
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Crew::class,
+            'data_class' => Film::class,
+            'inherit_data' => true,
         ]);
     }
 }

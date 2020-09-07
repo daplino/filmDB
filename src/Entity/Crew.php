@@ -28,7 +28,7 @@ class Crew
     private $person;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Work", inversedBy="crew")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Work", inversedBy="crew",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $work;

@@ -29,7 +29,13 @@
                 </ul>     
             </div>
         </nav>
-        {% block body %}{% endblock %}
+        <div class="container">
+            {% block body %}
+        
+            {% endblock %}
+        </div>
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="{{ asset('js/crew.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -13,5 +13,17 @@ class VideoGame Extends Work
   /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $test;  
+    private $test;
+
+    public function getTest(): ?int
+    {
+        return $this->test;
+    }
+
+    public function setTest(?int $test): self
+    {
+        $this->test = $test;
+
+        return $this;
+    }  
 }
