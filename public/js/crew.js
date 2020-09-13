@@ -12,7 +12,7 @@ $(document).ready(function () {
     $collectionHolder.data('index', $collectionHolder.find('.panel').length)
     // finds all the panels in the list and foreach one of them we add a remove button to it
     // add remove button to existing items
-    $collectionHolder.find('.panel').each(function () {
+    $collectionHolder.find('tr').each(function () {
         // $(this) means the current panel that we are at
         // which means we pass the panel to the addRemoveButton function
         // inside the function we create a footer and remove link and append them to the panel
@@ -49,11 +49,12 @@ function addNewForm() {
     // this is the panel that will be appending to the collectionHolder
     var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
     // create the panel-body and append the form to it
-    var $panelBody = $('<div class="panel-body"></div>').append(newForm);
+    var $panelBody = $('<table class="panel-body"></table>').append(newForm);
+    // append the removebutton to the new panel
+    addRemoveButton($panelBody);
     // append the body to the panel
     $panel.append($panelBody);
-    // append the removebutton to the new panel
-    addRemoveButton($panel);
+    
     // append the panel to the addNewItem
     // we are doing it this way to that the link is always at the bottom of the collectionHolder
     $addNewItem.before($panel);
@@ -67,7 +68,7 @@ function addRemoveButton ($panel) {
     // create remove button
     var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
     // appending the removebutton to the panel footer
-    var $panelFooter = $('<div class="panel-footer"></div>').append($removeButton);
+    var $panelBody = $('<td ></td>').append($removeButton);
     // handle the click event of the remove button
     $removeButton.click(function (e) {
         e.preventDefault();
@@ -78,5 +79,5 @@ function addRemoveButton ($panel) {
         })
     });
     // append the footer to the panel
-    $panel.append($panelFooter);
+    $panel.append($panelBody);
 }
