@@ -13,7 +13,17 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('reference')
-            ->add('action')
+            ->add( 
+                'action', CollectionType::class, [
+                'entry_type' => ActivityType::class,
+                'entry_options' =>[
+                    'label'=> false
+                ],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true
+                ]   
+            )
             ->add('year')
             ->add('round')
         ;

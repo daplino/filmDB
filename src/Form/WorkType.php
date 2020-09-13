@@ -29,7 +29,7 @@ class WorkType extends AbstractType
                 'allow_delete' => true
                 ]   
             );
-            echo('workTypes');
+            
             switch($workType){
                 case 'Film':
                 $builder->add('bar', FilmType::class,[
