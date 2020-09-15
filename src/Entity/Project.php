@@ -6,6 +6,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Activity;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -20,7 +21,7 @@ class Project
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
      */
     private $activities;
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Work;
 
 /**
  * @ORM\Entity(repositoryClass=ActivityRepository::class)

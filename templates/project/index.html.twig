@@ -10,6 +10,7 @@
         <th>ID</th>
         <th>ID</th>
         <th>ID</th>
+        <th>ID</th>
     </thead>
     <tbody>
         {% for project in projects %}
@@ -17,6 +18,18 @@
             <td>{{ project.id }}</td>
             <td>{{ project.action }}</td>
             <td>{{ project.year }}</td>
+            <td>
+                <a href="{{ path('project_edit', {
+                            id: project.id
+                        }) }}">
+                            <i class="fas fa-pen"></i>
+            </td>
+            <td>
+                <a href="{{ path('project_edit', {
+                            id: project.id
+                        }) }}">
+                            <i class="fas fa-trash-alt"></i>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

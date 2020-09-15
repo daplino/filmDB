@@ -1,9 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+{{ knp_menu_render('main') }}
     {{ form_start(form) }}
-        {{ form_row(form.id)}}
-        
-    {{ form_end(form) }}
+    <fieldset class="form-group border p-2">
+    <legend class="w-auto">Project {{form.vars.value.id}}</legend>
+    <div class="form-group col-lg-12" >
+    <div class="row">
+    {{form_widget(form.id,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-3'} })}}
+    {{form_widget(form.action,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-3'} })}}
+    </div>
+    
+    {{form_row(form.year)}}
+    </div>
+    <fieldset class="form-group border p-2">
+    <legend class="w-auto">Activities</legend>
+    <table class='offset-lg-1'>
+    {% for row in form.activities %}
+    <tr>
+        <td>{{ form_widget(row.id)}}</td>
+        <td>{{ form_widget(row.work.title)}}</td>
+    </tr>   
+    {% endfor %} 
+    </table>
+
+    </fieldset>
+    </fieldset>    
+    {{ form_end(form, {'render_rest': false}) }}
 {% endblock %}
