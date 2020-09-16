@@ -26,22 +26,22 @@ class MenuBuilder
                 'navbar' => true,
         ));
         $menu->setChildrenAttribute('class', 'navbar-nav mr-auto');
-        $menu->addChild('Projects', ['route' => 'project'])
+        $menu->addChild('projects', ['route' => 'project'])
                 ->setAttributes(array('class' => 'nav-item'))
                 ->setLinkAttributes(array('class'=> 'nav-link'));
         
         if ($user = $this->security->getUser()) {
-            $menu->addChild('Works')->setAttribute('dropdown',true) ;
-            $menu['Works']->addChild('List Works', ['route' => 'film'])
+            $menu->addChild('works')->setAttribute('dropdown',true) ;
+            $menu['works']->addChild('List Works', ['route' => 'film'])
                     ->setAttributes(array('class' => 'nav-item'))
                     ->setLinkAttributes(array('class'=> 'nav-link text-primary'));
                 
-            $menu['Works']->addChild('Create Work', ['route' => 'film/new'])
+            $menu['works']->addChild('Create Work', ['route' => 'film_create'])
                     ->setAttributes(array('class' => 'nav-item '))
                     ->setLinkAttributes(array('class'=> 'nav-link text-primary'));
                 }
         else {
-            $menu->addChild('Works', ['route' => 'film'])
+            $menu->addChild('works', ['route' => 'film'])
                 ->setAttributes(array('class' => 'nav-item'))
                 ->setLinkAttributes(array('class'=> 'nav-link'));
         }
@@ -56,15 +56,15 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'navbar-nav ');
         if ($user = $this->security->getUser()) {
-            $menu->addChild('Logout', ['route' => 'security_registration'])
+            $menu->addChild('logout', ['route' => 'security_registration'])
                 ->setAttributes(array('class' => 'nav-item'))
                 ->setLinkAttributes(array('class'=> 'nav-link '));
         }
         else{
-            $menu->addChild('Login', ['route' => 'security_login'])
+            $menu->addChild('login', ['route' => 'security_login'])
                     ->setAttributes(array('class' => 'nav-item'))
                     ->setLinkAttributes(array('class'=> 'nav-link bg-primary'));
-            $menu->addChild('Register', ['route' => 'security_registration'])
+            $menu->addChild('register', ['route' => 'security_registration'])
                     ->setAttributes(array('class' => 'nav-item'))
                     ->setLinkAttributes(array('class'=> 'nav-link '));
             }

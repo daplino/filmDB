@@ -1,0 +1,13 @@
+register: Register
+login: Login
+user:
+  registration: New User Registration
+  login: User Login
+  
+Add: Ajouter
+projects: Projects
+works: Works
+
+work:
+  title: Title
+  yearOfCopyright: Year of Copyright

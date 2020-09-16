@@ -1,0 +1,13 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+{% set applocales="en|fr"|split('|') %}
+
+{% for locale in applocales if locale != app.request.locale %}
+<br>
+       <a class="btn btn-dark" href="{{ path(route, params|merge({ _locale: locale })) }}" role="button">
+        {{ locale |upper}}
+    </a>
+
+{% endfor %}

@@ -15,9 +15,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/registration", name="security_registration")
+     * @Route("/registration/",
+     * name="security_registration")
      */
     public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
+        $locale = $request->getLocale();
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         

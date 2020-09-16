@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        
         {% block stylesheets %}
             
             {{ encore_entry_link_tags('app') }}
@@ -17,10 +17,14 @@
             </button>
 
             <div class="collapse navbar-collapse " id="navbarColor01">
+            {# Menu principal #}
             {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'extended_knp_menu.html.twig'}) }}
+            {# Menu utilisateur #}
             {{ knp_menu_render('user')}}
-                
+            {# Button de choix de la langue #}
+            {% include 'switch_locale.html.twig' %}  
             </div>
+            
         </nav>
         
         <div class="container">
