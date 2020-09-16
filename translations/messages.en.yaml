@@ -9,5 +9,14 @@ projects: Projects
 works: Works
 
 work:
-  title: Title
+  title: Original Title
   yearOfCopyright: Year of Copyright
+  id: Id
+  search: Search Work
+  nationality: MEDIA Nationality
+  status: Validation Status
+  director : Director
+  
+
+search:
+  criteria: Search Criteria

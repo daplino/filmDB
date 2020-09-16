@@ -3,36 +3,40 @@
 {% block title %}Hello ProjectController!{% endblock %}
 
 {% block body %}
-
-<section class="projects">
-<table class="table">
-    <thead>
-        <th>ID</th>
-        <th>ID</th>
-        <th>ID</th>
-        <th>ID</th>
-    </thead>
-    <tbody>
-        {% for project in projects %}
-        <tr>
-            <td>{{ project.id }}</td>
-            <td>{{ project.action }}</td>
-            <td>{{ project.year }}</td>
-            <td>
-                <a href="{{ path('project_edit', {
-                            id: project.id
-                        }) }}">
-                            <i class="fas fa-pen"></i>
-            </td>
-            <td>
-                <a href="{{ path('project_edit', {
-                            id: project.id
-                        }) }}">
+<fieldset class="form-group border p-2">
+    <legend class="w-auto">Project {{"test.test"}}</legend>
+    <div class="form-group col-lg-12" >
+        <section class="projects">
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>ID</th>
+                    <th>ID</th>
+                    <th>ID</th>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ project.id }}</td>
+                        <td>{{ project.action }}</td>
+                        <td>{{ project.year }}</td>
+                        <td>
+                            <a href="{{ path('project_edit', {
+                                id: project.id
+                                }) }}">
+                                <i class="fas fa-pen"></i>
+                            </td>
+                        <td>
+                            <a href="{{ path('project_edit', {
+                                id: project.id
+                            }) }}">
                             <i class="fas fa-trash-alt"></i>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</fieldset>
 {% endblock %}
