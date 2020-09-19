@@ -36,21 +36,6 @@ class Crew
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $gender;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nationality;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $residence;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $points;
 
     

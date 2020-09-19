@@ -17,6 +17,7 @@ class ProjectType extends AbstractType
             ->add('action')
             ->add('year')
             ->add('round')
+            ->add('status')
             ->add( 
                 'activities', CollectionType::class, [
                 'entry_type' => ActivityType::class,

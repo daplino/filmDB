@@ -10,16 +10,14 @@
 {% block body %}
 <div class="container">
     <h1>
-        {{"User.Registration"|trans}}
+        {{"user.registration"|trans}}
     </h1>
 
     {{ form_start(form) }}
 
     {{ form_widget(form)}}
     <button type="submit" class="btn btn-success"> 
-            {% trans into 'fr'%}
-                Add
-            {% endtrans %}</button>
+            Register</button>
 
     {{ form_end(form)}}
     </div>

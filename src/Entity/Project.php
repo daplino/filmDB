@@ -45,6 +45,11 @@ class Project
      */
     private $round;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -130,6 +135,18 @@ class Project
     public function setRound(int $round): self
     {
         $this->round = $round;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

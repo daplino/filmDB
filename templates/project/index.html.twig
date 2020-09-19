@@ -4,15 +4,54 @@
 
 {% block body %}
 <fieldset class="form-group border p-2">
-    <legend class="w-auto">Project {{"test.test"}}</legend>
+    <legend class="w-auto">{{"search.criteria"|trans}}</legend>
+        
+        <div class="form-group row">
+            <label for="film_id" class="col-form-label col-lg-1 offset-lg-1">ID</label>
+            <input id="film_id" type="text" class="form-control col-lg-1">
+
+            <label for="film_id" class="col-form-label col-lg-1">Action</label>
+            <select class="form-control col-lg-1" id="exampleFormControlSelect2">
+                <option>DEVSP</option>
+                <option>DEVSLATE</option>
+                <option>DEVVG</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+            <label for="film_id" class="col-form-label col-lg-1">Year</label>
+            <select class="form-control col-lg-1" id="exampleFormControlSelect2">
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+            </select>
+            <label for="film_id" class="col-form-label col-lg-1">Round</label>
+            <select class="form-control col-lg-1" id="exampleFormControlSelect2">
+                <option>1</option>
+                <option>2</option>
+            </select>
+            <label for="film_id" class="col-form-label col-lg-1">Status</label>
+            <select class="form-control col-lg-1" id="exampleFormControlSelect2">
+                <option>Open</option>
+                <option>Closed</option>
+            </select>
+        </div>
+                
+        <button class="btn btn-primary col-lg-8 offset-md-2 btn-lg">Search Project</button>
+        
+</fieldset>
+<fieldset class="form-group border p-2">
+    <legend class="w-auto">Project List</legend>
     <div class="form-group col-lg-12" >
         <section class="projects">
             <table class="table">
                 <thead>
                     <th>ID</th>
-                    <th>ID</th>
-                    <th>ID</th>
-                    <th>ID</th>
+                    <th>Action</th>
+                    <th>Year</th>
+                    <th>Round</th>
+                    <th>Status</th>
                 </thead>
                 <tbody>
                     {% for project in projects %}
@@ -20,18 +59,25 @@
                         <td>{{ project.id }}</td>
                         <td>{{ project.action }}</td>
                         <td>{{ project.year }}</td>
+                        <td>{{ project.round }}</td>
+                        <td>Open</td>
                         <td>
+                        {% if is_granted('ROLE_EACEA') %}
                             <a href="{{ path('project_edit', {
                                 id: project.id
                                 }) }}">
                                 <i class="fas fa-pen"></i>
                             </td>
+                        {% endif %}
                         <td>
+                        {% if is_granted('ROLE_EACEA_SUPERUSER') %}
                             <a href="{{ path('project_edit', {
                                 id: project.id
                             }) }}">
                             <i class="fas fa-trash-alt"></i>
+                        {% endif %}
                         </td>
+
                     </tr>
                     {% endfor %}
                 </tbody>

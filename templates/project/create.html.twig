@@ -1,29 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ knp_menu_render('main') }}
+
     {{ form_start(form) }}
     <fieldset class="form-group border p-2">
-    <legend class="w-auto">Project {{form.vars.value.id}}</legend>
-    <div class="form-group col-lg-12" >
-    <div class="row">
-    {{form_widget(form.id,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-3'} })}}
-    {{form_widget(form.action,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-3'} })}}
+    <legend class="w-auto">Project n° {{form.vars.value.id}}</legend>
+    <div class="form-group row">
+        <label for="film_id" class="col-form-label col-lg-1 offset-lg-1">Action</label>   
+        {{form_widget(form.action,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-2'} })}}
+        <label for="film_id" class="col-form-label col-lg-1 ">Year</label>
+        {{form_widget(form.year,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-1'} })}}
+        <label for="film_id" class="col-form-label col-lg-1 ">Round</label>
+        {{form_widget(form.round,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-1'} })}}
     </div>
     
-    {{form_row(form.year)}}
-    </div>
     <fieldset class="form-group border p-2">
     <legend class="w-auto">Activities</legend>
     <table class='offset-lg-1'>
+    <thead>
+        <th>ID</th>
+        <th>Activity Type</th>
+        <th>Work</th>    
+    </thead>
     {% for row in form.activities %}
     <tr>
         <td>{{ form_widget(row.id)}}</td>
-        <td>{{ form_widget(row.work.title)}}</td>
+        <td><input class="form-control" value="Admission"></input></td>
+        <td class="w-50">{{ form_widget(row.work.title)}}</td>
+        <td><a href="#"><i class="fas fa-pen"></i></td>
     </tr>   
-    {% endfor %} 
+    {% endfor %}
+    
     </table>
-
+    <br>
+    <button class="btn btn-primary col-lg-2 offset-md-1 ">Add Activity</button>
     </fieldset>
     </fieldset>    
     {{ form_end(form, {'render_rest': false}) }}

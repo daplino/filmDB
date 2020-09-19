@@ -27,6 +27,13 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+   
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $username;
@@ -38,7 +45,9 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email()
+     * @Assert\Email(
+     *  message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
@@ -126,14 +135,27 @@ class User implements UserInterface
         
     }
 
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
+    
+     // ...
+     public function getRoles(): array
+     {
+         $roles = $this->roles;
+         // guarantee every user at least has ROLE_USER
+         $roles[] = 'ROLE_USER';
+ 
+         return array_unique($roles);
+     }
 
     public function eraseCredentials()
     {
         
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     
