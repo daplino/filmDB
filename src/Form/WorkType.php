@@ -30,6 +30,8 @@ class WorkType extends AbstractType
                 ]   
             );
             
+            //Gestion de l'insertion des champs des classes  
+            //film/jeu video en fonctiondu type d'oeuvre
             switch($workType){
                 case 'Film':
                 $builder->add('bar', FilmType::class,[

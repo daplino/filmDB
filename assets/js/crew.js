@@ -1,15 +1,16 @@
+const $ = require('jquery');
 // this variable is the list in the dom, it's initiliazed when the document is ready
 var $collectionHolder;
 // the link which we click on to add new items
 var $addNewItem = $('<a href="#" class="btn btn-info">Add new item</a>');
 // when the page is loaded and ready
-$(document).ready(function () {
+$(document).ready(function ($) {
     // get the collectionHolder, initilize the var by getting the list;
-    $collectionHolder = $('#crew_list');
+    $collectionHolder = $('#crew_list_table');
     // append the add new item link to the collectionHolder
     $collectionHolder.append($addNewItem);
     // add an index property to the collectionHolder which helps track the count of forms we have in the list
-    $collectionHolder.data('index', $collectionHolder.find('.panel').length)
+    $collectionHolder.data('index', $collectionHolder.find('tr').length)
     // finds all the panels in the list and foreach one of them we add a remove button to it
     // add remove button to existing items
     $collectionHolder.find('tbody>tr').each(function () {
@@ -29,6 +30,9 @@ $(document).ready(function () {
         addNewForm();
     })
 });
+
+
+
 /*
  * creates a new form and appends it to the collectionHolder
  */
@@ -47,17 +51,17 @@ function addNewForm() {
     $collectionHolder.data('index', index+1);
     // create the panel
     // this is the panel that will be appending to the collectionHolder
-    var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
+    var $panel = $('<tr></tr>').append(newForm);
     // create the panel-body and append the form to it
-    var $panelBody = $('<table class="panel-body"></table>').append(newForm);
+    //var $panelBody = $('<td></td>').append(newForm);
     // append the removebutton to the new panel
-    addRemoveButton($panelBody);
+    //addRemoveButton($panelBody);
     // append the body to the panel
-    $panel.append($panelBody);
-    
+    //$panel.append($panelBody);
+    $collectionHolder.find('tbody').append($panel);
     // append the panel to the addNewItem
     // we are doing it this way to that the link is always at the bottom of the collectionHolder
-    $addNewItem.before($panel);
+    //$addNewItem.before($panel);
 }
 
 /**

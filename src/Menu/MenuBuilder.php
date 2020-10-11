@@ -29,7 +29,8 @@ class MenuBuilder
         $menu->addChild('projects', ['route' => 'project'])
                 ->setAttributes(array('class' => 'nav-item'))
                 ->setLinkAttributes(array('class'=> 'nav-link'));
-        
+                
+        //Accès au lien de création des oeuvres si l'utilisateur est authentifié
         if ($user = $this->security->getUser()) {
             $menu->addChild('works')->setAttribute('dropdown',true) ;
             $menu['works']->addChild('List Works', ['route' => 'film'])
