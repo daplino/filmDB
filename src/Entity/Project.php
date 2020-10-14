@@ -26,7 +26,7 @@ class Project
     private $activities;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $reference;
 
@@ -46,9 +46,20 @@ class Project
     private $round;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="project", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="pic", referencedColumnName="pic", nullable=true)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $decision;
 
     public function __construct()
     {
@@ -147,6 +158,30 @@ class Project
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getDecision(): ?string
+    {
+        return $this->decision;
+    }
+
+    public function setDecision(?string $decision): self
+    {
+        $this->decision = $decision;
 
         return $this;
     }
