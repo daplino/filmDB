@@ -37,8 +37,10 @@
                 <option>Closed</option>
             </select>
         </div>
-                
-        <button class="btn btn-primary col-lg-8 offset-md-2 btn-lg">Search Project</button>
+        {{ form_start(searchForm) }}
+         <button type="submit" class="btn btn-primary col-lg-8 offset-md-2 btn-lg">Search Project</button>
+        {{ form_end(searchForm) }}       
+       
         
 </fieldset>
 <fieldset class="form-group border p-2">
@@ -80,8 +82,11 @@
 
                     </tr>
                     {% endfor %}
+                    
+                    
                 </tbody>
             </table>
+             {{ knp_pagination_render(projects) }}
         </section>
     </div>
 </fieldset>

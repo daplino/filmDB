@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\ORM\QueryBuilder;
+use App\Entity\Search\SearchProject;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -21,22 +22,28 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     
-    // /**
-    //  * @return Project[] Returns an array of Project objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Project[] Returns an array of Project objects
+    */
+    
+    public function findByCriteria(SearchProject $criteria) : array
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        $query = $this
+            ->createQueryBuilder('p')
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+        ;
+
+        if(!empty($criteria->action)){
+            $query = $query
+                ->andwhere('p.action LIKE :action')
+                ->setParameter('action', "%{$criteria->action}%");
+        }
+        return $query
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Project
