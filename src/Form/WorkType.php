@@ -3,13 +3,31 @@
 namespace App\Form;
 
 use App\Entity\Work;
+use App\Entity\Genre;
+use App\Entity\Audience;
+use App\Repository\GenreRepository;
+use App\Repository\AudienceRepository;
+use Symfony\Component\Form\FormEvents;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class WorkType extends AbstractType
 {
+    private $em;
+
+    /**
+     * @param EntityManagerInterface $em
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
@@ -28,10 +46,36 @@ class WorkType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
                 ]   
-            );
+            )   
+            ->add('audience', EntityType::class, [
+                'label' => 'Region *',
+                'label_attr' => [
+                    "class" => "smaller lighter blue",
+                    "style" => "font-size: 21px;",
+                ],
+                'class'         => Audience::class,
+                'choice_label'  => 'name',
+                'multiple'      => false,
+                'query_builder' => function(AudienceRepository $repository) use ( $workType ){
+                    return $repository->findByWork($workType);
+                }
+            ])
+            ->add('genres', EntityType::class, [
+                'class'         => Genre::class,
+                'choice_label'  => 'name',
+                'multiple'      => true,
+                'expanded'      => true,
+                'query_builder' => function(GenreRepository $repository) use ( $workType ){
+                    return $repository->findByWork($workType);
+                }
+                
+            ]);
+            
+            /*$builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+            $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));*/
             
             //Gestion de l'insertion des champs des classes  
-            //film/jeu video en fonctiondu type d'oeuvre
+            //film/jeu video en fonction du type d'oeuvre
             switch($workType){
                 case 'Film':
                 $builder->add('bar', FilmType::class,[
@@ -55,4 +99,6 @@ class WorkType extends AbstractType
             'workType' => null,
         ]);
     }
+
+
 }

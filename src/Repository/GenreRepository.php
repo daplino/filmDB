@@ -19,6 +19,16 @@ class GenreRepository extends ServiceEntityRepository
         parent::__construct($registry, Genre::class);
     }
 
+    public function findByWork($value)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.workType = :val')
+            ->setParameter('val', $value)
+            ->orderBy('g.id', 'ASC')
+            ->setMaxResults(10)
+        ;
+    }
+
     // /**
     //  * @return Genre[] Returns an array of Genre objects
     //  */
