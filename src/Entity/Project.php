@@ -36,7 +36,7 @@ class Project
     private $action;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $year;
 
@@ -107,7 +107,7 @@ class Project
         return $this->reference;
     }
 
-    public function setReference(string $reference): self
+    public function setReference(?string $reference): self
     {
         $this->reference = $reference;
 
@@ -126,12 +126,12 @@ class Project
         return $this;
     }
 
-    public function getYear(): ?string
+    public function getYear(): ?\DateTimeInterface
     {
         return $this->year;
     }
 
-    public function setYear(string $year): self
+    public function setYear(?\DateTimeInterface $year): self
     {
         $this->year = $year;
 
@@ -155,7 +155,7 @@ class Project
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
@@ -167,7 +167,7 @@ class Project
         return $this->company;
     }
 
-    public function setCompany(Company $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
 

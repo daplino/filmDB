@@ -12,12 +12,10 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-
 import 'bootstrap';
 import Popper from 'popper.js';
-// require jQuery normally
 const $ = require('jquery');
 require ('./crew.js');
+require ('./role.js');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+

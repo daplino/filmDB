@@ -43,8 +43,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="security_login" )
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response{
-
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response{
+        $locale = $request->getLocale();
         $error = $authenticationUtils->getLastAuthenticationError();
 
 

@@ -2,13 +2,18 @@
 
 namespace App\Entity\Search;
 
-class SearchProject 
+class SearchWork 
 {
 
     /**
     *  @var string
     */  
-    public $action = '';
+    public $id = '';
+
+    /**
+    *  @var string
+    */  
+    public $title = '';
 
     /**
     *  @var string
@@ -18,12 +23,17 @@ class SearchProject
     /**
     *  @var string
     */  
-    public $round = '';
+    public $nationality = '';
 
     /**
     *  @var string
     */  
     public $status = '';
+
+    /**
+    *  @var string
+    */  
+    public $director = '';
 }
 
 ?>

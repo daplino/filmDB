@@ -38,6 +38,18 @@ class ProjectRepository extends ServiceEntityRepository
                 ->andwhere('p.action LIKE :action')
                 ->setParameter('action', "%{$criteria->action}%");
         }
+        
+        if(!empty($criteria->year)){
+            $query = $query
+                ->andwhere('p.year LIKE :year')
+                ->setParameter('year', "%{$criteria->year}%");
+        }
+
+        if(!empty($criteria->round)){
+            $query = $query
+                ->andwhere('p.round LIKE :round')
+                ->setParameter('round', "%{$criteria->round}%");
+        }
         return $query
             ->getQuery()
             ->getResult()

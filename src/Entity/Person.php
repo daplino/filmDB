@@ -19,11 +19,7 @@ class Person
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $work;
-
+   
     /**
      * @ORM\OneToMany(targetEntity=Crew::class, mappedBy="person")
      */
@@ -35,12 +31,12 @@ class Person
     private $gender;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nationality;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $residence;
 
@@ -62,18 +58,6 @@ class Person
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getWork(): ?string
-    {
-        return $this->work;
-    }
-
-    public function setWork(string $work): self
-    {
-        $this->work = $work;
-
-        return $this;
     }
 
     /**
@@ -124,7 +108,7 @@ class Person
         return $this->nationality;
     }
 
-    public function setNationality(string $nationality): self
+    public function setNationality(?string $nationality): self
     {
         $this->nationality = $nationality;
 
@@ -136,7 +120,7 @@ class Person
         return $this->residence;
     }
 
-    public function setResidence(string $residence): self
+    public function setResidence(?string $residence): self
     {
         $this->residence = $residence;
 

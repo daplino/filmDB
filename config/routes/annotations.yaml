@@ -1,3 +1,10 @@
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /en
+        permanent: true
+
 controllers:
     resource: ../../src/Controller/
     type: annotation

@@ -1,7 +1,8 @@
 {
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.14.0",
-        "@symfony/webpack-encore": "^0.30.0",
+        "@symfony/webpack-encore": "^0.31.0",
+        "bloodhound-js": "^1.2.3",
         "core-js": "^3.0.0",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
@@ -19,6 +20,10 @@
     },
     "dependencies": {
         "bootstrap": "^4.5.2",
-        "jquery": "^3.5.1"
+        "bootstrap-multiselect": "^0.9.15",
+        "jquery": "^3.5.1",
+        "jquery-multiselect": "^1.0.0",
+        "knockout": "^3.5.1",
+        "select2": "^4.0.13"
     }
 }

@@ -31,12 +31,12 @@ abstract Class Work
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Title;
+    private $title;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $YearOfCopyright;
+    protected $yearOfCopyright;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Crew", mappedBy="work", cascade={"persist"})
@@ -48,9 +48,29 @@ abstract Class Work
      */
     private $status;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Genre::class)
+     */
+    private $genres;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Audience", cascade={"persist", "remove"})
+     * @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="audience", referencedColumnName="id")
+     * })
+     */
+    private $audience;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Production", mappedBy="work", cascade={"persist"})
+     */
+    private $production;
+
     public function __construct()
     {
         $this->crew = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->production = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,37 +87,39 @@ abstract Class Work
 
     public function getTitle(): ?string
     {
-        return $this->Title;
+        return $this->title;
     }
 
-    public function setTitle(string $Title): self
+    public function setTitle(string $title): self
     {
-        $this->Title = $Title;
+        $this->title = $title;
 
         return $this;
     }
 
     public function getYearOfCopyright(): ?string
     {
-        return $this->YearOfCopyright;
+        return $this->yearOfCopyright;
     }
 
-    public function setYearOfCopyright(string $YearOfCopyright): self
+    public function setYearOfCopyright(?string $yearOfCopyright): self
     {
-        $this->YearOfCopyright = $YearOfCopyright;
+        $this->yearOfCopyright = $yearOfCopyright;
 
         return $this;
     }
 
-    
-    public function getCrew()
+    /**
+     * @return Collection|Crew[]
+     */
+    public function getCrew(): Collection
     {
         return $this->crew;
     }
 
     public function addCrew(Crew $crew): self
     {
-        if(!$this->crew->contains($crew)){
+        if (!$this->crew->contains($crew)) {
             $this->crew[] = $crew;
             $crew->setWork($this);
         }
@@ -125,9 +147,9 @@ abstract Class Work
     return end($type);
 }
 
-    public function setType(string $Type): self
+    public function setType(string $type): self
     {
-        $this->Type = $Type;
+        $this->type = $type;
 
         return $this;
     }
@@ -143,5 +165,86 @@ abstract Class Work
 
         return $this;
     }
-    
+
+    /**
+     * @return Collection|Genre[]
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): self
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres[] = $genre;
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): self
+    {
+        if ($this->genres->contains($genre)) {
+            $this->genres->removeElement($genre);
+        }
+
+        return $this;
+    }
+
+    public function getAudience(): ?Audience
+    {
+        return $this->audience;
+    }
+
+    public function setAudience(?Audience $audience): self
+    {
+        $this->audience = $audience;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Production[]
+     */
+    public function getProduction(): Collection
+    {
+        return $this->production;
+    }
+
+    public function addProduction(Production $production): self
+    {
+        if (!$this->production->contains($production)) {
+            $this->production[] = $production;
+            $production->setWork($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduction(Production $production): self
+    {
+        if ($this->production->contains($production)) {
+            $this->production->removeElement($production);
+            // set the owning side to null (unless already changed)
+            if ($production->getWork() === $this) {
+                $production->setWork(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getDirector()
+    {
+      $director = "";  
+        foreach($this->crew as $row)
+        {
+            if($row->getRole()->getId() == 1 )
+            {
+                $director .=  $row->getPerson()->getFirstname();
+                $director .=  " " . $row->getPerson()->getLastname()."\n \r";
+            }
+        }
+        return $director;
+    }
 }

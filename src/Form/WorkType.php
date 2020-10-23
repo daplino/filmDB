@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Work;
 use App\Entity\Genre;
 use App\Entity\Audience;
+use App\Form\ProductionType;
+use App\Repository\WorkRepository;
 use App\Repository\GenreRepository;
 use App\Repository\AudienceRepository;
 use Symfony\Component\Form\FormEvents;
@@ -48,11 +50,7 @@ class WorkType extends AbstractType
                 ]   
             )   
             ->add('audience', EntityType::class, [
-                'label' => 'Region *',
-                'label_attr' => [
-                    "class" => "smaller lighter blue",
-                    "style" => "font-size: 21px;",
-                ],
+                
                 'class'         => Audience::class,
                 'choice_label'  => 'name',
                 'multiple'      => false,
@@ -69,7 +67,22 @@ class WorkType extends AbstractType
                     return $repository->findByWork($workType);
                 }
                 
-            ]);
+            ])
+            ->add( 
+                'production', CollectionType::class, [
+                'entry_type' => ProductionType::class,
+                'entry_options' =>[
+                    'label'=> false
+                ],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true
+                ]   
+            ) 
+
+            
+                
+            ;
             
             /*$builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
             $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));*/

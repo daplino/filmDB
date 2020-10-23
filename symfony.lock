@@ -1,4 +1,7 @@
 {
+    "beberlei/doctrineextensions": {
+        "version": "v1.2.8"
+    },
     "components/font-awesome": {
         "version": "5.14.0"
     },
@@ -99,11 +102,17 @@
     "kevinrob/guzzle-cache-middleware": {
         "version": "v2.1.1"
     },
+    "knplabs/knp-components": {
+        "version": "v1.3.10"
+    },
     "knplabs/knp-menu": {
         "version": "2.6.0"
     },
     "knplabs/knp-menu-bundle": {
         "version": "v2.3.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v4.1.1"
     },
     "league/csv": {
         "version": "8.0.0"
@@ -158,6 +167,9 @@
     },
     "rtheunissen/guzzle-log-middleware": {
         "version": "v0.4.2"
+    },
+    "select2/select2": {
+        "version": "4.0.13"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

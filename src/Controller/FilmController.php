@@ -2,38 +2,27 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\Film;
+use App\Entity\Work;
+use App\Form\FilmType;
+use App\Form\WorkType;
+use App\Form\SearchWorkType;
+use App\Entity\Search\SearchWork;
+
+use App\Repository\WorkRepository;
+use Doctrine\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ObjectManager;
-use App\Entity\Work;
-
-use App\Entity\Film;
-use App\Repository\CrewRepository;
-use App\Form\WorkType;
-use App\Form\FilmType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FilmController extends AbstractController
 {
     /**
-     * @Route("/film", name="film")
-     */
-    public function index()
-    {
-        $repo = $this->getDoctrine()->getRepository(Work::class);
-
-        $works = $repo->findAll();
-
-        return $this->render('film/index.html.twig', [
-            'controller_name' => 'FilmController',
-            'works' => $works
-        ]);
-    }
-    /**
     * @Route("/", name="home")
     */
-    public function home() {
+    public function home(Request $request) {
         $repo = $this->getDoctrine()->getRepository(Work::class);
 
         $works = $repo->findAll();
@@ -43,6 +32,30 @@ class FilmController extends AbstractController
     ]);
 
     }
+
+    /**
+     * @Route("/film", name="film")
+     */
+    public function index(Request $request, PaginatorInterface $paginator, WorkRepository $repository)
+    {
+        $searchData = new SearchWork();
+        $searchForm = $this->createForm(SearchWorkType::class, $searchData);
+        
+        $searchForm->handleRequest($request);
+
+        $worksAll = $repository->findByCriteria($searchData);
+        $works = $paginator->paginate(
+            $worksAll,
+            $request->query->getInt('page', 1),
+            25
+            );
+        return $this->render('film/index.html.twig', [
+            'controller_name' => 'FilmController',
+            'works' => $works,
+            'searchForm' => $searchForm->createView()
+        ]);
+    }
+    
 
     /**
     *  @Route("/film/new", name="film_create")
@@ -58,11 +71,11 @@ class FilmController extends AbstractController
             $worktype = "Film";
             $work = new Film;
         }
-
+        
         $form = $this->createForm(WorkType::class, $work, array(
             'workType' => $worktype,
         ));
-        
+
         
 
         $form->handleRequest($request);
@@ -84,14 +97,16 @@ class FilmController extends AbstractController
     */
     public function test() {
         $token  = new \Tmdb\ApiToken('809df446f9ffd1e82b2d84cfbbddd7df');
-        $client = new \Tmdb\Client($token);
-                $repository = new \Tmdb\Repository\MovieRepository($client);
-        $movie      = $repository->load(5503);
-        
-        //$movie->getTitle(); 
+        $client = new \Tmdb\Client($token, ['secure' => false]);
+                $repository = new \Tmdb\Repository\PeopleRepository($client);
+        $movie      = $repository->load(2219660);
+
+        dd($movie);
+
+       /* //$movie->getTitle(); 
         return $this->render('film/home.html.twig',
-        ['movie'=>$movie]);            
-                
+        ['movie'=>$movie]);    */        
+       /*http://image.tmdb.org/t/p/w300_and_h450_bestv2/gEBWt6ypz6JuoceiVFcyl35kBSY.jpg/     */   
 
     }
 

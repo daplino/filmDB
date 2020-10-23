@@ -2,48 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Search\SearchProject;
+use App\Entity\Search\SearchWork;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class SearchProjectType extends AbstractType
+class SearchWorkType extends AbstractType
 {
 
     public function buildForm( FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('action', ChoiceType::class, [
+            ->add('title', TextType::class, [
                 'required' => false,
-                'preferred_choices' => [''],
-                'choice_value' => null,
-                'attr' => ['class' => 'form-control col-lg-1', 'data-select' => 'true'],
-                'choices' => [
-                    'DIST' => 'DIST',
-                    'DISTAUTOR' => 'DISTAUTOR',
-                    'DISTSEL' => 'DISTSEL',
-                    'DEVSPFIC' => 'DEVSPFIC',
-                    'TV' => 'TV'
-                ],
-                'group_by' => function($choice, $key, $value) {
-                    if (preg_match("/DEV/i", $choice, $match)) {
-                        return 'DEV';
-                    }
-                    elseif (preg_match("/DIST/i", $choice, $match)) {
-                        return 'DIST';
-                    }
-                    else {
-                        return 'TV';
-                    }                  
-                },      
+                'attr' => ['class' => 'form-control col-lg-9', 'data-select' => 'true']   
+            ])
+            ->add('id', TextType::class, [
+                'required' => false,
+                'attr' => ['class' => 'form-control col-lg-1', 'data-select' => 'true']   
             ])
             ->add('year', TextType::class, [
                 'required' => false,
                 'attr' => ['class' => 'form-control col-lg-1', 'data-select' => 'true']   
             ])
-            ->add('round', ChoiceType::class, [
+            ->add('nationality', ChoiceType::class, [
                 'required' => false,
                 'choice_value' => null,
                 'attr' => ['class' => 'form-control col-lg-1'],
@@ -63,6 +47,10 @@ class SearchProjectType extends AbstractType
                     'Open' => 'Open',
                     'Closed' => 'Closed'
                 ]
+            ])
+            ->add('director', TextType::class, [
+                'required' => false,
+                'attr' => ['class' => 'form-control col-lg-9', 'data-select' => 'true']   
             ]);
 
     }
@@ -71,7 +59,7 @@ class SearchProjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => SearchProject::class,
+            'data_class' => SearchWork::class,
             'method' => 'GET',
             'csrf_protection' => false
         ]);

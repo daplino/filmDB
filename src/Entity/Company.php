@@ -37,7 +37,7 @@ class Company
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->pic;
     }
 
     public function getName(): ?string
@@ -64,7 +64,10 @@ class Company
         return $this;
     }
 
-    public function getProject(): ?Project
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProject(): Collection
     {
         return $this->project;
     }

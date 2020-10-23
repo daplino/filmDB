@@ -18,7 +18,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/project", name="project")
      */
-    public function index(ProjectRepository $repository, Request $request,PaginatorInterface $paginator)
+    public function index(ProjectRepository $repository, Request $request, PaginatorInterface $paginator)
     {
 
         $searchData = new SearchProject();
@@ -26,11 +26,13 @@ class ProjectController extends AbstractController
         
         $searchForm->handleRequest($request);
         $projectsAll = $repository->findByCriteria($searchData);
-        $projects = $paginator->paginate(
-        $projectsAll,
-        $request->query->getInt('page', 1),
-        25
-        );
+        $projects = $paginator
+                    ->paginate(
+                        $projectsAll,
+                        $request->query->getInt('page', 1),
+                        25
+                    )
+        ;
         
         
         return $this->render('project/index.html.twig', [

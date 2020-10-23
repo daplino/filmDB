@@ -5,39 +5,31 @@
 {% block body %}
 <fieldset class="form-group border p-2">
     <legend class="w-auto">{{"search.criteria"|trans}}</legend>
+    {{ form_start(searchForm) }}
         <div class="form-group row">
             <label for="film_title" class="col-form-label col-lg-2">{{"work.title"|trans}}</label>
-            <input id="film_title" type="text" class="form-control col-lg-9">
+            {{form_widget(searchForm.title)}}
         </div>
         <div class="form-group row">
-            <label for="film_id" class="col-form-label col-lg-2">{{"work.id"|trans}}</label>
-            <input id="film_id" type="text" class="form-control col-lg-2">
+            <label for="work_id" class="col-form-label col-lg-2">{{"work.id"|trans}}</label>
+            {{form_widget(searchForm.id)}}
 
-            <label for="film_id" class="col-form-label col-lg-2">{{"work.nationality"|trans}}</label>
-            <select class="form-control col-lg-1" id="exampleFormControlSelect2">
-                <option>AT</option>
-                <option>BE</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
-            <label for="film_id" class="col-form-label col-lg-2">{{"work.status"|trans}}</label>
-            <select class="form-control col-lg-2" id="exampleFormControlSelect2">
-                <option>Validated</option>
-                <option>New</option>
-                <option>Rejected</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+            <label for="work_nationality" class="col-form-label col-lg-2">{{"work.nationality"|trans}}</label>
+            {{form_widget(searchForm.nationality)}}
+
+            <label for="work_status" class="col-form-label col-lg-2">{{"work.status"|trans}}</label>
+             {{form_widget(searchForm.status)}}
+
+             <label for="work_status" class="col-form-label col-lg-2">{{"work.year"|trans}}</label>
+             {{form_widget(searchForm.year)}}
         </div>
         <div class="form-group row">
-            <label for="film_id" class="col-form-label col-lg-2">{{"work.director"|trans}}</label>
-            <input id="film_id" type="text" class="form-control col-lg-9">
-            
+            <label for="work_director" class="col-form-label col-lg-2">{{"work.director"|trans}}</label>
+            {{form_widget(searchForm.director)}}   
         </div>
         
         <button class="btn btn-primary col-lg-8 offset-md-2 btn-lg">{{"work.search"|trans}}</button>
-        
+        {{ form_end(searchForm) }}
 </fieldset>
 <div class="form-group col-lg-12" >
          
@@ -57,7 +49,7 @@
                 <tr>
                     <td>{{ work.id }}</td>
                     <td>{{ work.title }}</td>
-                    <td>{{ work.title}}</td>
+                    <td>{{ work.director}}</td>
                     <td>{{ work.yearOfCopyright }}</td>
                     <td>{{ work.yearOfCopyright }}</td>
                     <td>{{ work.status }}</td>
@@ -72,5 +64,6 @@
                 {% endfor %}
             </tbody>
         </table>
+        {{ knp_pagination_render(works) }}
 </div>
 {% endblock %}

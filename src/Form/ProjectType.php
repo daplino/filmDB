@@ -6,6 +6,8 @@ use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProjectType extends AbstractType
@@ -15,7 +17,10 @@ class ProjectType extends AbstractType
         $builder
             ->add('id')
             ->add('action')
-            ->add('year')
+            ->add('year', DateTimeType::class, array(
+                'date_widget' => 'single_text',
+                'format' => 'yyyy'
+            ))
             ->add('round')
             ->add('status')
             ->add( 

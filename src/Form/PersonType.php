@@ -6,16 +6,20 @@ use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PersonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('work')
             ->add('gender')
-            ->add('nationality')
-            ->add('residence')
+            ->add('nationality',TextType::class, [
+                'empty_data' => ''
+            ])
+            ->add('residence',TextType::class, [
+                'empty_data' => ''
+            ])
             ->add('firstName')
             ->add('lastName')
         ;

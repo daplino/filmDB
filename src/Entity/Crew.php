@@ -18,51 +18,49 @@ class Crew
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="name")
      */
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="crewMember")
+     * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="crewMember", cascade={"persist"})
      */
     private $person;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Work", inversedBy="crew",cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     /**
+     * @ORM\ManyToOne(targetEntity=Work::class, inversedBy="id", cascade={"persist"})
      */
     private $work;
 
+
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $points;
 
-    
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRole(): ?string
+    public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
 
         return $this;
     }
 
-    
     public function getWork(): ?Work
     {
         return $this->work;
     }
 
-    public function setWork(Work $work): self
+    public function setWork(?Work $work): self
     {
         $this->work = $work;
 
@@ -105,12 +103,12 @@ class Crew
         return $this;
     }
 
-    public function getPoints(): ?string
+    public function getPoints(): ?int
     {
         return $this->points;
     }
 
-    public function setPoints(string $points): self
+    public function setPoints(?int $points): self
     {
         $this->points = $points;
 
@@ -127,5 +125,13 @@ class Crew
         $this->person = $person;
 
         return $this;
+    }
+
+    public function getDirector()
+    {
+        if($this->role == 1){
+            return $this->person->getFirstName();
+        }
+        else return false;
     }
 }
