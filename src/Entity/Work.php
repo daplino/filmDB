@@ -247,4 +247,10 @@ abstract Class Work
         }
         return $director;
     }
+
+    public function __toString()
+    {
+    return $this->title; 
+
+    }
 }

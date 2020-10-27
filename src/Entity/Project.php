@@ -31,7 +31,8 @@ class Project
     private $reference;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Action::class, inversedBy="project", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="action", referencedColumnName="code", nullable=true)
      */
     private $action;
 
@@ -114,12 +115,12 @@ class Project
         return $this;
     }
 
-    public function getAction(): ?string
+    public function getAction(): ?Action
     {
         return $this->action;
     }
 
-    public function setAction(string $action): self
+    public function setAction(?Action $action): self
     {
         $this->action = $action;
 

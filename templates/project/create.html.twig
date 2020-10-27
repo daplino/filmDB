@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% macro ligneTable(row) %}
+        
+        <td class="w-50">{{ form_widget(row.type)}}</td>
+        <td class="w-50">{{ form_widget(row.work.title)}}</td>
+        <td><a href="#"><i class="fas fa-pen"></i></td>
+{% endmacro ligneTable %}
+{% import _self as formMacros %}
+
 {% block body %}
 
     {{ form_start(form) }}
@@ -9,32 +17,32 @@
         <label for="film_id" class="col-form-label col-lg-1 offset-lg-1">Action</label>   
         {{form_widget(form.action,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-2'} })}}
         <label for="film_id" class="col-form-label col-lg-1 ">Year</label>
-        {{form_widget(form.year,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-1'} })}}
+        {{form_widget(form.year.year,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-2'} })}}
         <label for="film_id" class="col-form-label col-lg-1 ">Round</label>
         {{form_widget(form.round,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-1'} })}}
     </div>
     
     <fieldset class="form-group border p-2">
     <legend class="w-auto">Activities</legend>
-    <table class='offset-lg-1'>
+    <table id='project_activities' class='offset-lg-1' data-prototype="{{ formMacros.ligneTable(form.activities.vars.prototype)|e('html_attr') }}">
     <thead>
-        <th>ID</th>
         <th>Activity Type</th>
         <th>Work</th>    
     </thead>
     {% for row in form.activities %}
-    <tr>
-        <td>{{ form_widget(row.id)}}</td>
-        <td><input class="form-control" value="Admission"></input></td>
-        <td class="w-50">{{ form_widget(row.work.title)}}</td>
-        <td><a href="#"><i class="fas fa-pen"></i></td>
-    </tr>   
+    <tr data-prototype="{{ form_widget(form.activities.vars.prototype)|e('html_attr') }}">
+        
+        {{ formMacros.ligneTable(row)}}
+    </tr>
+
     {% endfor %}
-    
     </table>
     <br>
-    <button class="btn btn-primary col-lg-2 offset-md-1 ">Add Activity</button>
+    
     </fieldset>
-    </fieldset>    
+    
+    <button class="btn btn-primary col-lg-2 offset-md-1 ">Save Project</button>
+    </fieldset>
+
     {{ form_end(form, {'render_rest': false}) }}
 {% endblock %}

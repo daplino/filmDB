@@ -84,7 +84,23 @@ class WorkRepository extends ServiceEntityRepository
         ;
     }
     
-
+    public function findByTitle(String $criteria) : array
+    {
+        $query = $this
+            ->createQueryBuilder('w')
+            ->orderBy('w.id', 'ASC')
+            ->setMaxResults(10)
+        ;
+        if(!empty($criteria)){
+            $query = $query
+                ->andwhere('w.title LIKE :title')
+                ->setParameter('title', "%$criteria%");
+        }
+        return $query
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Work
     {

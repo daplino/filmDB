@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "beberlei/doctrineextensions": "^1.2",
         "components/font-awesome": "^5.14",
+        "corejavascript/typeahead.js": "^1.3",
         "knplabs/knp-menu-bundle": "^2.3",
         "knplabs/knp-paginator-bundle": "^4.1",
         "league/csv": "8.0",

@@ -58,6 +58,7 @@ function addNewForm() {
     //addRemoveButton($panelBody);
     // append the body to the panel
     //$panel.append($panelBody);
+    addRemoveButton($panel);
     $collectionHolder.find('tbody').append($panel);
     // append the panel to the addNewItem
     // we are doing it this way to that the link is always at the bottom of the collectionHolder
@@ -70,9 +71,9 @@ function addNewForm() {
  */
 function addRemoveButton ($panel) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
+    var $removeButton = $('<span style="color: Tomato;"><a href="#"><i class="fas fa-trash-alt " style="color: Tomato;"></i></span>');
     // appending the removebutton to the panel footer
-    var $panelBody = $('<td ></td>').append($removeButton);
+    var $panelBody = $('<td style="width: 5%; padding:0 !important;"></td>').append($removeButton);
     // handle the click event of the remove button
     $removeButton.click(function (e) {
         e.preventDefault();

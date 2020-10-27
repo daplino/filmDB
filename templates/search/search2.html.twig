@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{{ form_start(form) }}
+<table>
+{% for row in form|keys %}
+    <tr >
+        
+    {{row}}
+        <td class="w-50">test</td>
+        <td><a href="#"><i class="fas fa-pen"></i></td>
+    </tr>
+
+    {% endfor %}
+</table>
+{{ form_end(form) }}
+{% endblock %}

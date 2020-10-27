@@ -12,10 +12,16 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
 
+
 import 'bootstrap';
+
+
 import Popper from 'popper.js';
 const $ = require('jquery');
 require ('./crew.js');
-require ('./role.js');
+
+require ('./table.js');
+require ('./activity.js');
+require ('./autocomplete.js');
 
 

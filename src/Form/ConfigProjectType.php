@@ -2,26 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Activity;
+use App\Entity\ConfigProject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivityType extends AbstractType
+class ConfigProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('id' )
-        ->add('work', WorkType::class)   
-        ->add('type' )   
+            ->add('action')
+            ->add('year')
+            ->add('activityType')
+            ->add('minNbActivities')
+            ->add('maxNbActivites')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Activity::class,
+            'data_class' => ConfigProject::class,
         ]);
     }
 }

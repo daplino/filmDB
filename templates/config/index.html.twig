@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ConfigController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ controller_name }}!</h1>
+
+    <div class="form-group " >
+         
+    <section class="works">
+
+        <table class="table" id="activity_list_table">
+            <thead>
+                <th>{{"Action"|trans}}</th>
+                <th>{{"Year"|trans}}</th>
+                <th>{{"configProject.activityType"|trans}}</th>
+                <th>{{"configProject.minNbActivities"|trans}}</th>
+                <th>{{"configProject.maxNbActivities"|trans}}</th>
+            </thead>
+            <tbody>
+                {% for configProject in configProjects %}
+                <tr>
+                    <td>{{ form_widget(configProject.action) }}</td>
+                    <td>{{ form_widget(configProject.year) }}</td>
+                    <td>{{ configProject.activityType }}</td>
+                    <td>{{ configProject.minNbActivities }}</td>
+                    <td>{{ configProject.maxNbActivities }}</td>
+ 
+                    <td>
+                           
+                        </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    </div>
+</div>
+{% endblock %}

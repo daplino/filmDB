@@ -6,6 +6,7 @@ use App\Entity\Search\SearchProject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -19,7 +20,7 @@ class SearchProjectType extends AbstractType
                 'required' => false,
                 'preferred_choices' => [''],
                 'choice_value' => null,
-                'attr' => ['class' => 'form-control col-lg-1', 'data-select' => 'true'],
+                'attr' => ['class' => 'form-control col-lg-2', 'data-select' => 'true'],
                 'choices' => [
                     'DIST' => 'DIST',
                     'DISTAUTOR' => 'DISTAUTOR',
@@ -39,9 +40,15 @@ class SearchProjectType extends AbstractType
                     }                  
                 },      
             ])
-            ->add('year', TextType::class, [
+            
+            ->add('year', ChoiceType::class, [
                 'required' => false,
-                'attr' => ['class' => 'form-control col-lg-1', 'data-select' => 'true']   
+                'attr' => ['class' => 'form-control col-lg-1'],
+                'choices' => [
+                    ' ' => '',
+                    '2021' => 2021,
+                    '2020' => 2020
+                ]  
             ])
             ->add('round', ChoiceType::class, [
                 'required' => false,

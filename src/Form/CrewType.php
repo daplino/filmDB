@@ -31,7 +31,6 @@ class CrewType extends AbstractType
             ->add('role', EntityType::class, [
                     'class'         => Role::class,
                     'choice_label'  => 'name',
-                    
                     'multiple'      => false,
                     'query_builder' => function(RoleRepository $repository){
                         return $repository->findByWork();

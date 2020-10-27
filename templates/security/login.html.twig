@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
     <form action="{{path('security_login')}}" method="post">
 
         {% if error %}

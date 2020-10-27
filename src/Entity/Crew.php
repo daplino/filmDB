@@ -22,6 +22,8 @@ class Crew
      */
     private $role;
 
+    
+
     /**
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="crewMember", cascade={"persist"})
      */
@@ -67,42 +69,6 @@ class Crew
         return $this;
     }
 
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(string $gender): self
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    public function getNationality(): ?string
-    {
-        return $this->nationality;
-    }
-
-    public function setNationality(string $nationality): self
-    {
-        $this->nationality = $nationality;
-
-        return $this;
-    }
-
-    public function getResidence(): ?string
-    {
-        return $this->residence;
-    }
-
-    public function setResidence(string $residence): self
-    {
-        $this->residence = $residence;
-
-        return $this;
-    }
-
     public function getPoints(): ?int
     {
         return $this->points;
@@ -129,7 +95,7 @@ class Crew
 
     public function getDirector()
     {
-        if($this->role == 1){
+        if($this->role === 1){
             return $this->person->getFirstName();
         }
         else return false;

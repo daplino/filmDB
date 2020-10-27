@@ -3,6 +3,11 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
+<div>
+{{ render( controller( 'App\\Controller\\FilmController::searchBar') ) }}
+<div id="autocomplete-results">
+</div>
+</div>
 <fieldset class="form-group border p-2">
     <legend class="w-auto">{{"search.criteria"|trans}}</legend>
     {{ form_start(searchForm) }}
