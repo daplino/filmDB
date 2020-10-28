@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201011200250 extends AbstractMigration
+final class Version20201028091141 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,9 @@ final class Version20201011200250 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE regenerate');
-        $this->addSql('ALTER TABLE crew CHANGE points points INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE action CHANGE code code VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE company ADD CONSTRAINT FK_4FBF094F5373C966 FOREIGN KEY (country) REFERENCES country (code)');
+        $this->addSql('CREATE INDEX IDX_4FBF094F5373C966 ON company (country)');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +32,8 @@ final class Version20201011200250 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE regenerate (id INT AUTO_INCREMENT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
-        $this->addSql('ALTER TABLE crew CHANGE points points VARCHAR(255) DEFAULT NULL COLLATE utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE action CHANGE code code VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE company DROP FOREIGN KEY FK_4FBF094F5373C966');
+        $this->addSql('DROP INDEX IDX_4FBF094F5373C966 ON company');
     }
 }

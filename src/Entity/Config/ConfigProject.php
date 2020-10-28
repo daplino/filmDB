@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Config;
 
 use App\Repository\ConfigProjectRepository;
 use Doctrine\ORM\Mapping as ORM;

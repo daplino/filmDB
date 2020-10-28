@@ -21,22 +21,24 @@
                 <th>{{"Year"|trans}}</th>
                 <th>{{"configProject.activityType"|trans}}</th>
                 <th>{{"configProject.minNbActivities"|trans}}</th>
-                <th>{{"configProject.maxNbActivities"|trans}}</th>
+                <th>{{"configProject.maxNbActivites"|trans}}</th>
             </thead>
             <tbody>
                 {% for configProject in configProjects %}
+                
                 <tr>
-                    <td>{{ form_widget(configProject.action) }}</td>
-                    <td>{{ form_widget(configProject.year) }}</td>
+                    <td>{{ configProject.action }}</td>
+                    <td>{{ configProject.year }}</td>
                     <td>{{ configProject.activityType }}</td>
                     <td>{{ configProject.minNbActivities }}</td>
-                    <td>{{ configProject.maxNbActivities }}</td>
+                    <td>{{ configProject.maxNbActivites }}</td>
  
                     <td>
                            
                         </td>
                     
                 </tr>
+                
                 {% endfor %}
             </tbody>
         </table>

@@ -32,7 +32,7 @@ class Production
     private $role;
 
     /**
-    * @ORM\ManyToOne(targetEntity=Work::class, inversedBy="id", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity=Work::class, inversedBy="production", cascade={"persist"})
     */
     private $work;
 

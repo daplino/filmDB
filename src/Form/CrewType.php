@@ -38,7 +38,7 @@ class CrewType extends AbstractType
                 
             ])
             ->add('points')
-            ->add('person', PersonType::class)
+            ->add('person', PersonType::class )
         ;
     }
 

@@ -16,7 +16,6 @@ class WorkNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = array())
     {
         return [
-            'id'     => $object->getId(),
             'title'   => $object->getTitle(),
             /*'crew' => array_map(
                 function (Crew $crew) {

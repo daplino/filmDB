@@ -2,23 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\ActionRepository;
+use App\Repository\CountryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ActionRepository::class)
+ * @ORM\Entity(repositoryClass=CountryRepository::class)
  */
-class Action
+class Country
 {
     /**
-     * @ORM\GeneratedValue
+     *  
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=2)
      */
     private $code;
 
@@ -37,17 +37,5 @@ class Action
         $this->code = $code;
 
         return $this;
-    }
-
-    public function setId(int $id): self
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function __tostring(): ?string
-    {
-        return $this->code;
     }
 }

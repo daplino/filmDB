@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Action;
 use App\Entity\Activity;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -31,18 +32,18 @@ class Project
     private $reference;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Action::class, inversedBy="project", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Action::class,  cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="action", referencedColumnName="code", nullable=true)
      */
     private $action;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $year;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $round;
 
@@ -70,6 +71,11 @@ class Project
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id=$id;
     }
 
     /**
@@ -127,12 +133,12 @@ class Project
         return $this;
     }
 
-    public function getYear(): ?\DateTimeInterface
+    public function getYear(): ?int
     {
         return $this->year;
     }
 
-    public function setYear(?\DateTimeInterface $year): self
+    public function setYear(?int $year): self
     {
         $this->year = $year;
 
@@ -144,7 +150,7 @@ class Project
         return $this->round;
     }
 
-    public function setRound(int $round): self
+    public function setRound(?int $round): self
     {
         $this->round = $round;
 

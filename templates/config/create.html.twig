@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% macro ligneTable(row) %}
+ 
+                    
+                        <td style='width: 15%; padding:0 !important;'>{{ form_widget(row.action, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ form_widget(row.year, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ form_widget(row.activityType, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.minNbActivities, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.maxNbActivites, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 5%; padding:0 !important;'><a><i class="fas fa-pen"></i></td>
+                    
+                   
+ {% endmacro ligneTable %}
+
+ {% import _self as formMacros %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+        <fieldset class="form-group border p-2">
+            <legend class="w-auto">Cast and Crew</legend>
+                <table class="table" id="crew_list_table" data-prototype="{{ formMacros.ligneTable(form.crew.vars.prototype)|e('html_attr') }}">
+                    <thead>
+                        <th class="w-10">Action</th>
+                        <th class="w-15">Year</th>
+                        <th class="w-15">Activity Type</th>
+                        <th class="w-10">Min Rows</th>
+                        <th class="w-10">Max Rows</th>
+                    </thead>
+                
+                    {% for row in form.crew %}
+                    <tr name='test' data-prototype="{{ form_widget(form.crew.vars.prototype)|e('html_attr') }}">
+                        {{ formMacros.ligneTable(row)}}
+                        
+                    </tr>
+                    {% endfor %}
+                </table>
+        </fieldset>
+        
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% macro ligneTable(row) %}
- 
                     
                         <td style='width: 15%; padding:0 !important;'>{{ form_widget(row.role, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 20%; padding:0 !important;'>{{ form_widget(row.person.firstName, {'attr': {'class': 'form-control-sm'}}) }}</td>
@@ -9,18 +8,25 @@
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.gender, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.nationality, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.residence, {'attr': {'class': 'form-control-sm'}}) }}</td>
-                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.points, {'attr': {'class': 'form-control-sm'}}) }}</td>
-                        <td style='width: 5%; padding:0 !important;'><a><i class="fas fa-pen"></i></td>
-                    
-                   
+                        {% if is_granted('ROLE_EACEA') %}<td style='width: 5%; padding:0 !important;'>{{ form_widget(row.points, {'attr': {'class': 'form-control-sm'}}) }}</td>{% endif %}
+                        
+                              
  {% endmacro ligneTable %}
+
+{% macro ligneTableProd(row) %}
+                        <td style='width: 15%; padding:0 !important;'>{{ form_widget(row.role, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ form_widget(row.company.name, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 20%; padding:0 !important;'></td>
+                        <td style='width: 5%; padding:0 !important;'></td>
+                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.share, {'attr': {'class': 'form-control-sm'}}) }}</td>
+ {% endmacro ligneTableProd %}
 
  {% import _self as formMacros %}
 
 {% block body %}
-
     {{ form_start(form) }}
         {{ form_row(form.title)}}
+        {{ form_row(form.yearOfCopyright)}}
         <fieldset class="form-group border p-2">
             <legend class="w-auto">Cast and Crew</legend>
                 <table class="table" id="crew_list_table" data-prototype="{{ formMacros.ligneTable(form.crew.vars.prototype)|e('html_attr') }}">
@@ -31,22 +37,29 @@
                         <th class="w-10">Gender</th>
                         <th class="w-10">Nationality</th>
                         <th class="w-10">Residence</th>
-                        <th class="w-10">Points</th>
+                        {% if is_granted('ROLE_EACEA') %}<th class="w-10">Points</th>{% endif %}
                         <th class="w-10"></th>
                     </thead>
-                
+                    <tbody>
+                   
                     {% for row in form.crew %}
-                    <tr name='test' data-prototype="{{ form_widget(form.crew.vars.prototype)|e('html_attr') }}">
-                        {{ formMacros.ligneTable(row)}}
-                        
+                    <tr name='test' }}>
+                        {{ formMacros.ligneTable(row)}}    
                     </tr>
                     {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    
+                    </tfoot>
                 </table>
         </fieldset>
+
         {{ form_row(form.audience)}}
+        {{ form_row(form.genres)}}
+
         <fieldset class="form-group border p-2">
             <legend class="w-auto">Production</legend>
-                <table class="table" id="crew_list_table" >
+                <table class="table" id="production_list_table" data-prototype="{{ formMacros.ligneTableProd(form.production.vars.prototype)|e('html_attr') }}">
                     <thead>
                         <th class="w-10">Role</th>
                         <th class="w-15">Company</th>
@@ -55,7 +68,7 @@
                         <th class="w-10">Share</th>
                         <th class="w-10"></th>
                     </thead>
-                
+                    <tbody>
                     {% for row in form.production %}
                     <tr name='bla'>
                        <td style='width: 15%; padding:0 !important;'>{{ form_widget(row.role, {'attr': {'class': 'form-control-sm'}}) }}</td>
@@ -63,13 +76,16 @@
                         <td style='width: 20%; padding:0 !important;'></td>
                         <td style='width: 5%; padding:0 !important;'></td>
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.share, {'attr': {'class': 'form-control-sm'}}) }}</td>
-                       
-                        <td style='width: 5%; padding:0 !important;'><a><i class="fas fa-pen"></i></td>
-                        
+   
                     </tr>
                     {% endfor %}
+                    </tbody>
                 </table>
         </fieldset>
         <button type="submit" class="btn btn-success"> Ajouter</button>
-    {{ form_end(form) }}
+        {{ form_row(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+    {% block javascripts %}
+            {% if is_granted('ROLE_EULOGIN') %}{{ encore_entry_script_tags('crew') }}{{ encore_entry_script_tags('production') }}{% endif %}
+        {% endblock %}
 {% endblock %}

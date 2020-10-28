@@ -23,6 +23,10 @@ class ProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $years = array();
+        for($i = 2021;$i> 2005;$i--)
+        $years["$i"] = $i;
+
         $builder
             ->add('id')
             ->add('action', EntityType::class, array(
@@ -33,10 +37,20 @@ class ProjectType extends AbstractType
                         return $actionRepository->createQueryBuilder('a');
                     },
             ))
-            ->add('year', DateType::class, array(
-             'years'           => range(date('Y')+1, date('Y')-15),   
+            ->add('year', ChoiceType::class, array(
+                'choices' => $years,
+             
+             
+        
+ 
             ))
-            ->add('round')
+            ->add('round', ChoiceType::class, [
+                'required' => false,
+                'attr' => ['class' => 'form-control col-lg-1'],
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2
+            ]])
             ->add('status')
             ->add(
                 'activities',
@@ -54,15 +68,15 @@ class ProjectType extends AbstractType
                 ]   
             );
             
-        $builder
+        /*$builder
             ->get('action')->addEventListener(
                 FormEvents::POST_SUBMIT,
                
                 function (FormEvent $event){ 
                     $form = $event->getForm();  
-                    /*$this->addActivitiesTable($form->getParent(), $form->getData());*/
+                    $this->addActivitiesTable($form->getParent(), $form->getData());
                     $form->getParent()->remove('activities')
-                        ->add(
+                    ->add(
                         'activities',
                         CollectionType::class,
                         [
@@ -79,7 +93,7 @@ class ProjectType extends AbstractType
                
                 }
 
-            );
+            );*/
     }
         
         /*$builder->addEventListener(

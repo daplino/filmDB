@@ -6,8 +6,7 @@ use App\Entity\Project;
 use App\Entity\Activity;
 use App\Form\ProjectType;
 use App\Form\ActivityType;
-use App\Form\ActivitiesType;
-use App\Entity\ConfigProject;
+use App\Entity\Config\ConfigProject;
 use App\Form\SearchProjectType;
 use App\Entity\Search\SearchProject;
 use App\Repository\ProjectRepository;
@@ -47,43 +46,39 @@ class ProjectController extends AbstractController
     }
 
     /**
-    *  @Route("/project/new/", name="project_create")
+    *  @Route("/project/new", name="project_create")
     *  @Route("/project/{id}/edit", name="project_edit")
     */
     public function create(Project $project = null, Request $request, ObjectManager $manager) {
 
-        if($request->isXmlHttpRequest()){
-            dump('youpi'.$project);
+        if($project != null){
         }
         else{
             $project = new Project;
-           $this->newActivity($manager, null, $request);
+           
            dump($project);
         }
-
-        
+ 
         $form = $this->createForm(ProjectType::class, $project);
-        
-        
-
         $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-
+        dump($form->getData());
+        dump('dehors');
+        if($form->isSubmitted() ){
+            dump('dedans');
         $manager->persist($project);
         $manager->flush();
 
         }
-                
+        dump('dehors');       
         return $this->render('project/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
-    
+
     /**
      * @Route("/handleAction/{query?}", name="handle_action", methods={"POST", "GET"})
      */
-    public function newActivity(ObjectManager $manager, $query, Request $request)
+    public function AjaxActivity(ObjectManager $manager, $query, Request $request)
     {
  
     
@@ -108,13 +103,9 @@ class ProjectController extends AbstractController
         $activities[]=$activity;
         
     }
-    $form = $this->createForm(ActivitiesType::class, $activities,array(
-        'activities' => $activities,
-    ));
-    dump($form);
-    return $this->render('search/search2.html.twig', [
-        'form' => $form->createView()
+    return $this->json($activitiesConfig, 200, [],[]);
         
-    ]);
+    
     }
+    
 }

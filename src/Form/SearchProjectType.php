@@ -2,9 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\Action;
 use App\Entity\Search\SearchProject;
+use App\Repository\ActionRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,31 +19,16 @@ class SearchProjectType extends AbstractType
     public function buildForm( FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('action', ChoiceType::class, [
-                'required' => false,
-                'preferred_choices' => [''],
-                'choice_value' => null,
-                'attr' => ['class' => 'form-control col-lg-2', 'data-select' => 'true'],
-                'choices' => [
-                    'DIST' => 'DIST',
-                    'DISTAUTOR' => 'DISTAUTOR',
-                    'DISTSEL' => 'DISTSEL',
-                    'DEVSPFIC' => 'DEVSPFIC',
-                    'TV' => 'TV'
-                ],
-                'group_by' => function($choice, $key, $value) {
-                    if (preg_match("/DEV/i", $choice, $match)) {
-                        return 'DEV';
+            ->add('action', EntityType::class, array(
+                'class' => Action::class,
+                'choice_label'  => 'code',
+                'data' => 'DISTAUTOG',
+                'attr' => ['class' => 'form-control col-lg-2'],
+                'query_builder' => function (ActionRepository $actionRepository) {
+                        return $actionRepository->createQueryBuilder('a');
                     }
-                    elseif (preg_match("/DIST/i", $choice, $match)) {
-                        return 'DIST';
-                    }
-                    else {
-                        return 'TV';
-                    }                  
-                },      
-            ])
-            
+                ))
+                            
             ->add('year', ChoiceType::class, [
                 'required' => false,
                 'attr' => ['class' => 'form-control col-lg-1'],

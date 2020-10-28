@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Config;
 
-use App\Entity\ConfigProject;
+use App\Entity\Config\ConfigProject;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

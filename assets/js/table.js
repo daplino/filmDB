@@ -1,5 +1,5 @@
 const $ = require('jquery');
-
+var action = document.querySelector('#project_action');
 var $collectionHolder;
 var $addNewItem = $('<a href="#" class="btn btn-info">Add new item</a>');
 
@@ -7,11 +7,11 @@ $(document).ready(function ($) {
 
     $collectionHolder = $('#project_activities');
     $collectionHolder.append($addNewItem);
-    $collectionHolder.data('index', $collectionHolder.find('tr').length);
+    $collectionHolder.data('index', $collectionHolder.find('tr').length)
     $collectionHolder.find('tbody>tr').each(function () {
         addRemoveButton($(this));
     });
-    
+    $length=$collectionHolder.find('tbody').find('tr').length;
     console.log($collectionHolder.find('tbody').find('tr').length);
     $addNewItem.click(function (e) {
         e.preventDefault();
@@ -29,7 +29,6 @@ function addNewForm() {
     $collectionHolder.data('index', index+1);
     var $panel = $('<tr></tr>').append(newForm);
     $collectionHolder.find('tbody').append($panel);
-    console.log($collectionHolder.find('tbody').find('tr').length);
 
 }
 
@@ -49,3 +48,48 @@ function addRemoveButton ($panel) {
     $panel.append($panelBody);
 }
 
+action.onchange = function() {
+    $collectionHolder.find('tbody').html("");
+    action_val = this.value;
+    loadconfig(action_val);
+    /*input_val = this.value; // updates the variable on each ocurrence
+    autocomplete_results = document.querySelector("#form_result");
+    autocomplete_results.innerHTML = '';
+    if (input_val.length > 0) {
+      autocomplete_results = document.querySelector("#form_result");
+    loadresults(input_val);
+    } 
+    else {
+      autocomplete_results.innerHTML = '';
+    }*/
+  }
+
+function loadconfig(input_val) {
+    $collectionHolder.find('tbody').html('loading...');
+  
+    currentRequest =  $.ajax({
+          type: "POST",
+          url: "http://127.0.0.1:8000/en/handleAction/"+input_val,
+          async:true,
+          data: {
+             query: 't'
+          },
+          dataType: "json",
+          
+          success: function(response) {
+            $collectionHolder.find('tbody').html('');
+              for (i=0; i<Object.keys(response).length;i++){
+                console.log(response[i].activityType);
+                for(j=0; j<response[i].minNbActivities;j++){
+                    addNewForm();
+                    $('#project_activities_'+(j+1)+'_type').attr('value',response[j].activityType); 
+                    console.log('#project_activities_'+(j+1)+'type')
+
+                }
+              }
+             
+          }
+      });
+  
+  }
+  

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CompanyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Project;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=CompanyRepository::class)
@@ -29,6 +30,12 @@ class Company
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="company", cascade={"persist", "remove"})
      */
     private $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class)
+     * @ORM\JoinColumn(name="country", referencedColumnName="code", nullable=true)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -103,6 +110,18 @@ class Company
                 $project->setCompany(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

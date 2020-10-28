@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\WorkRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Crew;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\WorkRepository;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=WorkRepository::class)
@@ -50,6 +52,10 @@ abstract Class Work
 
     /**
      * @ORM\ManyToMany(targetEntity=Genre::class)
+     * @JoinTable(name="work_genre",
+     *      joinColumns={@JoinColumn(name="work_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="genre_id", referencedColumnName="id", unique=true)}
+     *      )
      */
     private $genres;
 

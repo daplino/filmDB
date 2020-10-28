@@ -26,7 +26,8 @@ class PersonType extends AbstractType
                 'empty_data' => ''
             ])
             ->add('residence',TextType::class, [
-                'empty_data' => ''
+                'empty_data' => '',
+                'required' => false
             ])
             ->add('firstName')
             ->add('lastName')

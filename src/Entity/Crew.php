@@ -18,7 +18,7 @@ class Crew
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="name")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Role")
      */
     private $role;
 
@@ -30,7 +30,7 @@ class Crew
     private $person;
 
      /**
-     * @ORM\ManyToOne(targetEntity=Work::class, inversedBy="id", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Work::class, inversedBy="crew")
      */
     private $work;
 

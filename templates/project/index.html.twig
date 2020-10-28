@@ -26,8 +26,9 @@
          <button type="submit" class="btn btn-primary col-lg-8 offset-md-2 btn-lg">Search Project</button>
         {{ form_end(searchForm) }}       
        
-{{ projects|length }}        
+      
 </fieldset>
+{{ projects.getTotalItemCount|format_number }} {{ "Results" | trans}}
 <fieldset class="form-group border p-2">
     <legend class="w-auto">{{ "Project List" | trans }}</legend>
     <div class="form-group col-lg-12" >
@@ -47,7 +48,7 @@
                         <td>{{ project.id }}</td>
                         <td>{{ project.company.name }}</td>
                         <td>{{ project.action.code }}</td>
-                        <td>{{ project.year | date('Y') }}</td>
+                        <td>{{ project.year }}</td>
                         <td>{{ project.round }}</td>
                         <td>Open</td>
                         <td>

@@ -9,14 +9,13 @@
         {% endblock %}
     </head>
     <body>
-   
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Navbar</a>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-expand-lg navbar-dark bg-primary shadow-lg p-3 mb-5 rounded " style="position: sticky; width:100%; z-index:100;">
+            <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('./../MEDIA.png') }}" alt="" width="180" class=""/></a>
             <button class="navbar-toggler" aria-expanded="true" aria-controls="navbarColor01" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarColor01">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse " id="navbarColor01">
+            <div class="collapse navbar-collapse navbar-fixed-top" id="navbarColor01">
             {# Menu principal #}
             {{ knp_menu_render('main', {'currentClass': 'active', 'template': 'extended_knp_menu.html.twig'}) }}
             {# Menu utilisateur #}

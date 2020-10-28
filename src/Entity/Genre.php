@@ -25,7 +25,7 @@ class Genre
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Work::class, inversedBy="genres")
+     * @ORM\ManyToMany(targetEntity=Work::class)
      */
     private $work;
 

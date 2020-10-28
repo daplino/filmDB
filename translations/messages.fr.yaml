@@ -11,6 +11,24 @@ works: Oeuvres
 work:
   title: Titre
   yearOfCopyright: Année du Copyright
+  director: Réalisateur
+  nationality: Nationalité MEDIA
+  year: Année du Copyright
 
 Open: Ouvert
 Closed: Cloturé
+List Works : Liste des Oeuvres
+Create Work : Créer une Oeuvre
+
+logout : Se déconnecter
+Result: Résultat
+Results: Résultats
+
+Project List : Liste des Projets
+search.criteria : Critères de Recherche
+Year : Année
+Company : Société
+Year of Copyright : Année du Copyright
+Genres : Genres
+Title: Titre
+Audience : Public

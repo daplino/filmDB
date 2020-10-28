@@ -15,6 +15,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
@@ -36,7 +37,7 @@ class WorkType extends AbstractType
         $workType = $options['workType'];
 
         $builder
-            ->add('title')
+            ->add('title', TextType::class, ['attr' => ['class' => 'ajax_film_title']])
             ->add('yearOfCopyright')
             ->add( 
                 'crew', CollectionType::class, [

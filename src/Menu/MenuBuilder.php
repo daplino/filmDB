@@ -57,7 +57,7 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'navbar-nav ');
         if ($user = $this->security->getUser()) {
-            $menu->addChild('logout', ['route' => 'security_registration'])
+            $menu->addChild('logout', ['route' => 'security_logout'])
                 ->setAttributes(array('class' => 'nav-item'))
                 ->setLinkAttributes(array('class'=> 'nav-link '));
         }

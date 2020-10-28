@@ -5,7 +5,7 @@ var $addNewItem = $('<a href="#" class="btn btn-info">Add new item</a>');
 // when the page is loaded and ready
 $(document).ready(function ($) {
     // get the collectionHolder, initilize the var by getting the list;
-    $collectionHolder = $('#crew_list_table');
+    $collectionHolder = $('#production_list_table');
     // append the add new item link to the collectionHolder
     $collectionHolder.append($addNewItem);
     // add an index property to the collectionHolder which helps track the count of forms we have in the list
