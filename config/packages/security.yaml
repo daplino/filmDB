@@ -17,8 +17,7 @@ security:
             form_login:
                 login_path: security_login
                 check_path: security_login
-                use_referer: true
-                failure_path: film
+                
 
             logout:
                 path: security_logout

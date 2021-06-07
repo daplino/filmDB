@@ -50,6 +50,8 @@ abstract Class Work
      */
     private $status;
 
+    
+
     /**
      * @ORM\ManyToMany(targetEntity=Genre::class)
      * @JoinTable(name="work_genre",
@@ -71,6 +73,12 @@ abstract Class Work
      * @ORM\OneToMany(targetEntity="App\Entity\Production", mappedBy="work", cascade={"persist"})
      */
     private $production;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Country::class, cascade={"persist"})
+     * @ORM\JoinColumn(name="country", referencedColumnName="code", nullable=true)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -258,5 +266,17 @@ abstract Class Work
     {
     return $this->title; 
 
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
+
+        return $this;
     }
 }

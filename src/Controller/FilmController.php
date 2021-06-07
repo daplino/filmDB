@@ -12,6 +12,7 @@ use App\Form\WorkType;
 use App\Form\SearchWorkType;
 use App\Entity\Search\SearchWork;
 use App\Repository\WorkRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -23,9 +24,9 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FilmController extends AbstractController
 {
@@ -66,10 +67,12 @@ class FilmController extends AbstractController
         ]);
     }
     
+    
 
     /**
-    *  @Route("/film/new", name="film_create")
+    *  
     *  @Route("/film/{id}/edit", name="film_edit")
+    *  @Route("/film/new", name="film_create")
     */
     public function create(Work $work = null, Request $request, ObjectManager $manager) {
         
@@ -80,6 +83,7 @@ class FilmController extends AbstractController
         else{
             $worktype = "Film";
             $work = new Film;
+            $work->status = "New";
         }
         
         $form = $this->createForm(WorkType::class, $work, array(
@@ -96,9 +100,23 @@ class FilmController extends AbstractController
         $manager->flush();
 
         }
-                
+       
         return $this->render('film/create.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+     /**
+     * @Route("/film/{id}", name="film_view")
+     */
+    public function detail(Request $request, Work $work, ActivityRepository $activities)
+    {
+
+        $activitesAll = $activities->findByWork($work->getid());
+        return $this->render('film/view.html.twig', [
+            'controller_name' => 'FilmController',
+            'work' => $work,
+            'activities' => $activitesAll
         ]);
     }
 

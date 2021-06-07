@@ -27,6 +27,8 @@
     {{ form_start(form) }}
         {{ form_row(form.title)}}
         {{ form_row(form.yearOfCopyright)}}
+        {{ form_row(form.status)}}
+        
         <fieldset class="form-group border p-2">
             <legend class="w-auto">Cast and Crew</legend>
                 <table class="table" id="crew_list_table" data-prototype="{{ formMacros.ligneTable(form.crew.vars.prototype)|e('html_attr') }}">
@@ -86,6 +88,6 @@
         {{ form_row(form._token) }}
     {{ form_end(form, {'render_rest': false}) }}
     {% block javascripts %}
-            {% if is_granted('ROLE_EULOGIN') %}{{ encore_entry_script_tags('crew') }}{{ encore_entry_script_tags('production') }}{% endif %}
+            {% if is_granted(['ROLE_EACEA','ROLE_EULOGIN']) %}{{ encore_entry_script_tags('crew') }}{{ encore_entry_script_tags('production') }}{% endif %}
         {% endblock %}
 {% endblock %}

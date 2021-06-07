@@ -1,0 +1,55 @@
+<!--Twig template no vue->
+{% extends 'base.html.twig' %}
+
+{% macro ligneTable(row) %}
+        
+        <td class="w-50">{{ form_widget(row.type)}}</td>
+        <td class="w-50">{{ form_widget(row.work.title)}}</td>
+        <td><a href="#"><i class="fas fa-pen"></i></td>
+{% endmacro ligneTable %}
+{% import _self as formMacros %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <fieldset class="form-group border p-2 shadow-lg mb-5 rounded">
+    <legend class="w-auto">Project n° {{form.vars.value.id}}</legend>
+    <div class="form-group row">
+        <label for="film_id" class="col-form-label col-lg-1 offset-lg-1">Action</label>   
+        {{form_widget(form.action,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-2'} })}}
+        <label for="film_id" class="col-form-label col-lg-1 ">Year</label>
+        {{form_widget(form.year,{ 'attr': {'class' : 'col-lg-2'} })}}
+        <label for="film_id" class="col-form-label col-lg-1 ">Round</label>
+        {{form_widget(form.round,{ 'attr': {'readonly': 'true' , 'class' : 'col-lg-1'} })}}
+    </div>
+    
+    <fieldset class="form-group border p-2 shadow mb-5 rounded" >
+    <legend class="w-auto">Activities</legend>
+    <table id='project_activities' class='offset-lg-1' data-prototype='<td class="w-50"><input type="text" id="project_activities___name___type" name="project[activities][__name__][type]" required="required" maxlength="255" class="form-control" /></td>
+        <td class="w-50"><input type="text" id="project_activities___name___work_title" name="project[activities][__name__][work][title]" required="required" maxlength="255" class="form-control" /></td>
+        <td><a href="#"><i class="fas fa-pen"></i></td>'>
+        <thead>
+            
+            <th>Activity Type</th>
+            <th>Work</th>    
+        </thead>
+        <tbody>
+        {% for row in form.activities %}
+            <tr>
+            {{ formMacros.ligneTable(row)}}
+            </tr>
+            <tr id="test"></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <div class="result"><a id="result_'" class="btn btn-success single_result" href="#" hidden></a></div>
+    </fieldset>
+    
+    <button type="submit" class="btn btn-primary col-lg-2 offset-md-1 shadow-lg mb-5 rounded">Save Project</button>
+    </fieldset>
+    <div id="app">
+            <App/>
+        </div>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}

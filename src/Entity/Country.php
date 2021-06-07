@@ -10,22 +10,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Country
 {
-    /**
-     *  
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+   
 
     /**
      * @ORM\Id
      * @ORM\Column(type="string", length=2)
      */
     private $code;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCode(): ?string
     {
@@ -38,4 +29,10 @@ class Country
 
         return $this;
     }
+
+    public function __tostring(): ?string
+    {
+        return $this->code;
+    }
+    
 }

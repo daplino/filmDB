@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductionRepository;
+use App\Entity\Company;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,9 +19,9 @@ class Production
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class)
+     * @ORM\ManyToOne(targetEntity=Company::class, cascade={"persist"})
      * @ORM\JoinColumns({
-     *  @ORM\JoinColumn(name="company", referencedColumnName="pic", nullable=false)
+     *  @ORM\JoinColumn(name="company", referencedColumnName="id", nullable=false)
      * })
      */
     private $company;

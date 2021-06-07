@@ -10,41 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Action
 {
+ 
     /**
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="action")
      * @ORM\Id
      * @ORM\Column(type="string", length=255)
      */
     private $code;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCode(): ?string
     {
         return $this->code;
     }
 
-    public function setCode(string $code): self
+    public function setCode(string $code)
     {
         $this->code = $code;
 
         return $this;
     }
 
-    public function setId(int $id): self
-    {
-        $this->id = $id;
 
-        return $this;
-    }
 
     public function __tostring(): ?string
     {

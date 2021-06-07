@@ -39,6 +39,7 @@ class WorkType extends AbstractType
         $builder
             ->add('title', TextType::class, ['attr' => ['class' => 'ajax_film_title']])
             ->add('yearOfCopyright')
+            ->add('status')
             ->add( 
                 'crew', CollectionType::class, [
                 'entry_type' => CrewType::class,
@@ -79,7 +80,8 @@ class WorkType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
                 ]   
-            ) 
+            )
+            ->add('country') 
 
             
                 

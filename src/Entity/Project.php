@@ -22,7 +22,7 @@ class Project
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist", "remove"})
      */
     private $activities;
 
@@ -32,7 +32,7 @@ class Project
     private $reference;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Action::class,  cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Action::class)
      * @ORM\JoinColumn(name="action", referencedColumnName="code", nullable=true)
      */
     private $action;
@@ -50,11 +50,11 @@ class Project
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $status;
+    private $status="new";
 
     /**
      * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="project", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="pic", referencedColumnName="pic", nullable=true)
+     * @ORM\JoinColumn(name="company", referencedColumnName="id", nullable=true)
      */
     private $company;
 

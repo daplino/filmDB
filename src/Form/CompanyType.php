@@ -13,7 +13,7 @@ class CompanyType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('pic')
+            ->add('id')
         ;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Command;
 
-use App\Entity\Work;
+use App\Entity\Film;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Csv\Reader;
 use Symfony\Component\Console\Command\Command;
@@ -65,11 +65,12 @@ class CsvImportCommand extends Command
 
         foreach ($results as $row) {
 
-            // create new work
-            $work = (new Work())
+            // create new film
+            $work = (new Film())
                 ->setId($row['id'])
                 ->setTitle($row['title'])
                 ->setYearOfCopyright($row['year_of_copyright'])
+                ->setStatus("New")
             ;
 
             $this->em->persist($work);

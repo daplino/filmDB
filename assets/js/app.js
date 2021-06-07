@@ -15,8 +15,18 @@ require('@fortawesome/fontawesome-free/js/all.js');
 import $ from 'jquery';
 import 'bootstrap';
 
-
 import Popper from 'popper.js';
+import Vue from 'vue';
+import App from './views/App.vue';
+import axios from 'axios';
+
+Vue.prototype.$axios = axios;
+
+
+new Vue({
+    el: "#app",
+    components: {App}
+})
 
 
 require ('./table.js');

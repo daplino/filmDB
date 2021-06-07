@@ -4,16 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Activity;
+use App\Entity\Action;
 use App\Form\ProjectType;
 use App\Form\ActivityType;
-use App\Entity\Config\ConfigProject;
 use App\Form\SearchProjectType;
+use App\Entity\Config\ConfigProject;
 use App\Entity\Search\SearchProject;
 use App\Repository\ProjectRepository;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectController extends AbstractController
@@ -60,16 +63,16 @@ class ProjectController extends AbstractController
         }
  
         $form = $this->createForm(ProjectType::class, $project);
+       
         $form->handleRequest($request);
-        dump($form->getData());
-        dump('dehors');
+        
         if($form->isSubmitted() ){
+
             dump('dedans');
         $manager->persist($project);
         $manager->flush();
 
-        }
-        dump('dehors');       
+        }      
         return $this->render('project/create.html.twig', [
             'form' => $form->createView()
         ]);
@@ -107,5 +110,37 @@ class ProjectController extends AbstractController
         
     
     }
+
+     /**
+     * @Route("/handleActionVue/{query?}", name="handle_action_vue", methods={"GET"})
+     */
+    public function VueActivity(ObjectManager $manager, $query, Request $request)
+    {
+ 
     
+    $activitiesConfig = $this->getDoctrine()->getRepository(ConfigProject::class)->findBy(array('action'=> $query), null, 10, $offset = null);
+   
+    return $this->json($activitiesConfig, 200, [],[]);
+        
+    
+    }
+
+    /**
+     * @Route("/vuePost/", name="vue_post", methods={"POST"})
+     */
+    public function VueCreateProject(Request $request, SerializerInterface $serializer, EntityManagerInterface $em)
+    {
+ 
+    $json = $request->getContent();
+    $post = $serializer->deserialize($json, Project::class, 'json');
+    
+    $post->setAction($em->getRepository(Action::class)->find($post->getAction()->getCode(),null,null));
+
+    $em->persist($post);
+    $em->flush();
+   
+    return $this->json($post, 201, [], []);
+        
+    
+    }
 }

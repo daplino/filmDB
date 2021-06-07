@@ -3,11 +3,7 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
-<div>
-{{ render( controller( 'App\\Controller\\FilmController::searchBar') ) }}
-<div id="autocomplete-results">
-</div>
-</div>
+
 <fieldset class="form-group border p-2">
     <legend class="w-auto">{{"search.criteria"|trans}}</legend>
     {{ form_start(searchForm) }}
@@ -22,7 +18,7 @@
             <label for="work_nationality" class="col-form-label col-lg-2">{{"work.nationality"|trans}}</label>
             {{form_widget(searchForm.nationality)}}
 
-            <label for="work_status" class="col-form-label col-lg-2">{{"work.status"|trans}}</label>
+            <label for="work_status" class="col-form-label col-lg-1">{{"work.status"|trans}}</label>
              {{form_widget(searchForm.status)}}
 
              <label for="work_status" class="col-form-label col-lg-2">{{"work.year"|trans}}</label>
@@ -56,16 +52,25 @@
                     <td>{{ work.id }}</td>
                     <td>{{ work.title }}</td>
                     <td>{{ work.director}}</td>
-                    <td>{{ work.yearOfCopyright }}</td>
+                    <td>{{ work.country }}</td>
                     <td>{{ work.yearOfCopyright }}</td>
                     <td>{{ work.status }}</td>
+                    {% if is_granted('ROLE_EACEA') or is_granted('ROLE_EULOGIN') %}
+                    <td>
+                            <a href="{{ path('film_view', {
+                                id: work.id
+                            }) }}">
+                            <i class="fas fa-eye"></i>
+                    </td>
+                    {% if is_granted('ROLE_EACEA') %}
                     <td>
                             <a href="{{ path('film_edit', {
                                 id: work.id
                             }) }}">
                             <i class="fas fa-pen"></i>
-                        </td>
-                    
+                    </td>
+                    {% endif %}
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

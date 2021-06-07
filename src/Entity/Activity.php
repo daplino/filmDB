@@ -19,7 +19,7 @@ class Activity
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Work::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Work::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $work;
@@ -45,7 +45,7 @@ class Activity
         return $this->work;
     }
 
-    public function setWork(Work $work): self
+    public function setWork(?Work $work): self
     {
         $this->work = $work;
 

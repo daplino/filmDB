@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+        Title : {{ work.title }}<br>
+        Year of Copyright : {{ work.yearOfCopyright}}<br>
+        Country of Origin : {{ work.country}}<br>
+        Validation Status : {{ work.status}}
+        <fieldset class="form-group border p-2">
+            <legend class="w-auto">Cast and Crew</legend>
+                <table class="table" id="crew_list_table" ">
+                    <thead>
+                        <th class="w-10">Role</th>
+                        <th class="w-15">First Name</th>
+                        <th class="w-15">Last Name</th>
+                        <th class="w-10">Gender</th>
+                        <th class="w-10">Nationality</th>
+                        <th class="w-10">Residence</th>
+                        {% if is_granted('ROLE_EACEA') %}<th class="w-10">Points</th>{% endif %}
+                        <th class="w-10"></th>
+                    </thead>
+                    <tbody>
+                   
+                    {% for row in work.crew %}
+                    <tr name='test' }}>
+                         <td style='width: 15%; padding:0 !important;'>{{ row.role.name }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ row.person.firstName }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ row.person.lastName }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ row.person.gender }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ row.person.nationality }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ row.person.residence }}</td>
+                        {% if is_granted('ROLE_EACEA') %}<td style='width: 5%; padding:0 !important;'>{{ row.points }}</td>{% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    
+                    </tfoot>
+                </table>
+        </fieldset>
+    
+
+        Audience : {{ work.audience.name}}
+        
+
+        <fieldset class="form-group border p-2">
+            <legend class="w-auto">Production</legend>
+                <table class="table" id="production_list_table" }}">
+                    <thead>
+                        <th class="w-10">Role</th>
+                        <th class="w-15">Company</th>
+                        <th class="w-15">Country</th>
+                        <th class="w-10">City</th>
+                        <th class="w-10">Share</th>
+                        <th class="w-10"></th>
+                    </thead>
+                    <tbody>
+                    {% for work in work.production %}
+                    <tr name='bla'>
+                       <td style='width: 15%; padding:0 !important;'>{{ work.role.name }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ work.company.name }}</td>
+                        <td style='width: 20%; padding:0 !important;'></td>
+                        <td style='width: 5%; padding:0 !important;'></td>
+                        <td style='width: 5%; padding:0 !important;'>{{ work.share }}</td>
+   
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </fieldset>
+
+        <fieldset class="form-group border p-2">
+            <legend class="w-auto">Projects</legend>
+                <table class="table" id="production_list_table" >
+                    <thead>
+                        <th class="w-10">Role</th>
+                        <th class="w-15">Company</th>
+                    </thead>
+                    <tbody>
+                     {% for activity in activities %}
+                    <tr name='bla'>
+                       <td style='width: 15%; padding:0 !important;'>{{ activity.type }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ activity.project.company.name }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ activity.project.company.country }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ activity.project.id }}</td>
+                        <td style='width: 20%; padding:0 !important;'>{{ activity.project.year }}</td>
+
+                     {% endfor %}
+                    </tbody>
+                </table>
+        </fieldset>       
+    {% block javascripts %}
+            
+        {% endblock %}
+{% endblock %}

@@ -24,10 +24,7 @@ class Genre
      */
     private $name;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Work::class)
-     */
-    private $work;
+
 
     /**
      * @ORM\Column(type="string", length=255)

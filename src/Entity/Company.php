@@ -14,17 +14,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Company
 {
     
+     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
+    
     /**
-     * @ORM\Id
      * @ORM\Column(type="integer")
      */
     private $pic;
+
+   
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="company", cascade={"persist", "remove"})
@@ -44,7 +51,7 @@ class Company
 
     public function getId(): ?int
     {
-        return $this->pic;
+        return $this->id;
     }
 
     public function getName(): ?string
@@ -55,18 +62,6 @@ class Company
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPic(): ?int
-    {
-        return $this->pic;
-    }
-
-    public function setPic(int $pic): self
-    {
-        $this->pic = $pic;
 
         return $this;
     }
@@ -122,6 +117,18 @@ class Company
     public function setCountry(?Country $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getPic(): ?int
+    {
+        return $this->pic;
+    }
+
+    public function setPic(int $pic): self
+    {
+        $this->pic = $pic;
 
         return $this;
     }
