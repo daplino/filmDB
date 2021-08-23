@@ -47,6 +47,10 @@ class MenuBuilder
                 ->setLinkAttributes(array('class'=> 'nav-link'));
         }
 
+        $menu->addChild('statistics', ['route' => 'statistics'])
+                ->setAttributes(array('class' => 'nav-item'))
+                ->setLinkAttributes(array('class'=> 'nav-link'));
+
         return $menu;
     }
 

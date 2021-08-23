@@ -3,6 +3,9 @@
 {% block title %}Hello FilmController!{% endblock %}
 
 {% block body %}
+<div id="app">
+            <App/>
+        </div>
 
 <fieldset class="form-group border p-2">
     <legend class="w-auto">{{"search.criteria"|trans}}</legend>
@@ -32,6 +35,8 @@
         <button class="btn btn-primary col-lg-8 offset-md-2 btn-lg">{{"work.search"|trans}}</button>
         {{ form_end(searchForm) }}
 </fieldset>
+
+
 {{ works.getTotalItemCount|format_number }} {{ "Results" | trans}}
 <div class="form-group col-lg-12" >
          
@@ -76,6 +81,8 @@
             </tbody>
         </table>
         {{ knp_pagination_render(works) }}
+
+        
 </div>
 {% block javascripts %}
             {{ encore_entry_script_tags('crew') }}

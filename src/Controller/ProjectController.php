@@ -125,6 +125,20 @@ class ProjectController extends AbstractController
     
     }
 
+     /**
+     * @Route("/handleStatsVue/{query?}", name="handle_stats_vue", methods={"GET"})
+     */
+    public function VueStats(ObjectManager $manager, $query, Request $request)
+    {
+ 
+    
+    $activitiesConfig = $this->getDoctrine()->getRepository(ConfigProject::class)->findBy(array('action'=> $query), null, 10, $offset = null);
+   
+    return $this->json($activitiesConfig, 200, [],[]);
+        
+    
+    }
+
     /**
      * @Route("/vuePost/", name="vue_post", methods={"POST"})
      */

@@ -15,7 +15,7 @@
                     <option value="DEVSPFIC">DEVSPFIC</option>
                     <option value="DISTAUTOG">DISTAUTOG</option>
                     <option value="DISTSAG">DISTSAG</option>
-                    <option>DISTSELL</option>
+                    <option>DISTSEL</option>
                     
                 </select>
         
@@ -95,7 +95,7 @@ import ActivityDistautog from "../components/ActivityDistautog.vue"
 
 
 export default {
-    name: 'app',
+    name: 'stats',
     components: {
       ActivityDistautog,
       BarChart,

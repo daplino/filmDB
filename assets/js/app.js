@@ -6,28 +6,30 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import '../css/app.css';
-import '../css/app.scss';
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
-
-import $ from 'jquery';
+import '../css/app.css';
+import '../css/app.scss';
 import 'bootstrap';
-
-import Popper from 'popper.js';
 import Vue from 'vue';
 import App from './views/App.vue';
 import axios from 'axios';
+import store from './store';
 
 Vue.prototype.$axios = axios;
 
 
 new Vue({
     el: "#app",
-    components: {App}
+    store,
+    render: h => h(App)
 })
-
+new Vue({
+    el: "#stats",
+    store,
+    render: h => h(App)
+})
 
 require ('./table.js');
 require ('./activity.js');

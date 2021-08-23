@@ -41,7 +41,19 @@ class FilmController extends AbstractController
         'controller_name' => 'FilmController',
             'works' => $works
     ]);
+    }
 
+     /**
+    * @Route("/statistics", name="statistics")
+    */
+    public function statistics(Request $request) {
+        $repo = $this->getDoctrine()->getRepository(Work::class);
+
+        $works = $repo->findAll();
+        return $this->render('statistics.html.twig', [
+        'controller_name' => 'FilmController',
+            'works' => $works
+    ]);
     }
 
     /**
