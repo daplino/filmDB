@@ -58,15 +58,16 @@ class ProjectRepository extends ServiceEntityRepository
     }
     
 
-    /*
-    public function findOneBySomeField($value): ?Project
+    
+    public function countProjectsPerAction() : array
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->addSelect('COUNT(p.id) as count')
+            ->groupBy('p.action')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(30)->getQuery()
+            ->getResult();
+        
     }
-    */
+    
 }

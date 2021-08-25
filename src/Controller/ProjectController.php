@@ -81,7 +81,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/handleAction/{query?}", name="handle_action", methods={"POST", "GET"})
      */
-    public function AjaxActivity(ObjectManager $manager, $query, Request $request)
+    /*public function AjaxActivity(ObjectManager $manager, $query, Request $request)
     {
  
     
@@ -102,14 +102,14 @@ class ProjectController extends AbstractController
         
         /*$form['scales']->add($this->createForm(ScaleType::class, $scale, [
             'auto_initialize' => false
-        ]));*/
+        ]));
         $activities[]=$activity;
         
     }
     return $this->json($activitiesConfig, 200, [],[]);
         
     
-    }
+    }*/
 
      /**
      * @Route("/handleActionVue/{query?}", name="handle_action_vue", methods={"GET"})
@@ -131,10 +131,10 @@ class ProjectController extends AbstractController
     public function VueStats(ObjectManager $manager, $query, Request $request)
     {
  
+        
+    $projects = $this->getDoctrine()->getRepository(Project::class)->countProjectsPerAction();
     
-    $activitiesConfig = $this->getDoctrine()->getRepository(ConfigProject::class)->findBy(array('action'=> $query), null, 10, $offset = null);
-   
-    return $this->json($activitiesConfig, 200, [],[]);
+    return $this->json($projects, 200, [],['groups' => ['project']]);
         
     
     }
@@ -157,4 +157,25 @@ class ProjectController extends AbstractController
         
     
     }
+
+    /**
+     * @Route("/vueStatsPost/", name="vue_statistics_post", methods={"POST"})
+     */
+    public function VueStatsPost(Request $request, SerializerInterface $serializer, EntityManagerInterface $em)
+    {
+ 
+    $json = $request->getContent();
+    $post = $serializer->deserialize($json, Project::class, 'json');
+    
+    $post->setAction($em->getRepository(Action::class)->find($post->getAction()->getCode(),null,null));
+
+    $em->persist($post);
+    $em->flush();
+   
+    return $this->json($post, 201, [], []);
+        
+    
+    }
+
+   
 }

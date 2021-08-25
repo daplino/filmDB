@@ -15,6 +15,7 @@
                     <option value="DEVSPFIC">DEVSPFIC</option>
                     <option value="DISTAUTOG">DISTAUTOG</option>
                     <option value="DISTSAG">DISTSAG</option>
+                    <option value="DISTAUTOR2">DISTAUTOR2</option>
                     <option>DISTSEL</option>
                     
                 </select>
@@ -34,47 +35,45 @@
     </fieldset>
     
     <fieldset class="form-group border p-2 shadow mb-5 rounded" >
-    <legend class="w-auto">Activities</legend>
-     <div id='list' v-if='activities.length'>
-         <div v-for='element in activities' >
-            <div v-if='element.minNbActivities'>
+    <legend class="w-auto">Statistics</legend>
+     
+         
+            
          <table class='table'>
              <thead>
                 <th>Id</th>
                 <th>Activity Type</th>
                 <th>Film</th>
                 <th></th>
-                    </thead> 
+            </thead> 
 			
-                <tr v-for="index in element.minNbActivities" :key="index">
-                        <td><input class="form-control" type="text" v-model="element.id"></td>
-                        <td><input class="form-control" type="text" v-model="element.activityType"></td>
-                        <td><input class="form-control" type="text" ></td>
-                        <td><a class="button is-primary">Add Movie</a></td>				
+            <tr v-for='element in activisions' :key="element.id">
+                <td><input class="form-control" type="text" v-model="activisions.count"></td>
+                <td><input class="form-control" type="text" v-model="element.count"></td>
+                <td><input class="form-control" type="text" ></td>
+                <td><a class="button is-primary">Add Movie</a></td>				
                 
-                </tr>
+            </tr>
 				
 			
         </table>
-        </div>
-        </div>
-	</div>
+
+ 
+	
     <br>
     <div class="result"><a id="result_'" class="btn btn-success single_result" href="#" hidden></a></div>
     </fieldset>
     
     
     <button class="btn btn-primary col-lg-2 offset-md-1 shadow-lg mb-5 rounded">Save Project</button>
-    <activity-distautog/>
+    
 </form> 
-        <select name="LeaveType"  class="form-control" v-model="selectedValue">
-            <option value=" "></option>
-            <option value="DISTAUTOG">DISTAUTOG</option>
-            <option value="DEVSPFIC">DEVSPFIC</option>
-        </select>
-    <BarChart/>
+<input type="checkbox" id="checkbox" v-model="checked">
+    
+    <BarChart :chart="data1"/>
+
     <br>
-    {{ count }}
+
     </div>
 
 
@@ -101,7 +100,9 @@ export default {
       BarChart,
     },
     data: () => ({
-        activities: [],
+        checked: false,
+        activisions: [],
+        data1: [],
         title:'test',
         action:"TEST",
         year: 2021,
@@ -111,16 +112,23 @@ export default {
     }),
      methods: {
         onChange(event) {
-            axios.get('http://127.0.0.1:8000/en/handleActionVue/'+this.action).then(response => {
-            this.activities = response.data
-            this.title = activities[0].activity.value
+            axios.get('http://127.0.0.1:8000/en/handleStatsVue/'+this.action).then(response => {
+            this.activisions = response.data
+            this.activisions.forEach(el=>{
+      this.data1.push(parseInt(el.count,10));
+      console.log(this.data1);
+      /*this.labels.push(el.name);*/
+    });
+ 
+});
+           
             
-          })
-        },
+          }
+        ,
         formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                axios.post('http://127.0.0.1:8000/en/vuePost/', {
+                axios.post('http://127.0.0.1:8000/en/vueStatisticsPost/', {
                     action : { code: this.action } ,
                     year: this.year,
                     round: this.round,

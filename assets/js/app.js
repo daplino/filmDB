@@ -14,6 +14,7 @@ import '../css/app.scss';
 import 'bootstrap';
 import Vue from 'vue';
 import App from './views/App.vue';
+import Stats from './views/Stats.vue';
 import axios from 'axios';
 import store from './store';
 
@@ -28,7 +29,7 @@ new Vue({
 new Vue({
     el: "#stats",
     store,
-    render: h => h(App)
+    render: h => h(Stats)
 })
 
 require ('./table.js');
