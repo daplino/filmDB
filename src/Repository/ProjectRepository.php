@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Entity\Action;
 use Doctrine\ORM\QueryBuilder;
 use App\Entity\Search\SearchProject;
 use Doctrine\Persistence\ManagerRegistry;
@@ -62,9 +63,13 @@ class ProjectRepository extends ServiceEntityRepository
     public function countProjectsPerAction() : array
     {
         return $this->createQueryBuilder('p')
-            ->addSelect('COUNT(p.id) as count')
+            ->select('COUNT(p.id) as count, p.year')
+            ->leftJoin(Action::class,'a','WITH','p.action = a')
+                ->addSelect('a.code') // Entity Types
+                ->where('p.action = a.code')
             ->groupBy('p.action')
-            ->orderBy('p.id', 'DESC')
+            ->addGroupBy('p.year')
+            ->orderBy('p.year', 'ASC')
             ->setMaxResults(30)->getQuery()
             ->getResult();
         
