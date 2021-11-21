@@ -21,11 +21,11 @@ import store from './store';
 Vue.prototype.$axios = axios;
 
 
-/*new Vue({
+new Vue({
     el: "#app",
     store,
     render: h => h(App)
-})*/
+})
 new Vue({
     el: "#stats",
     store,
