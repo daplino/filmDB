@@ -17,7 +17,7 @@ work:
   status: Validation Status
   director : Director
   year: Year
-  
+  create: Create Work
 
 search:
   criteria: Search Criteria

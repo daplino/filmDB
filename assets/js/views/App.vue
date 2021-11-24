@@ -67,7 +67,7 @@
     <button class="btn btn-primary col-lg-2 offset-md-1 shadow-lg mb-5 rounded">Save Project</button>
     <activity-distautog/>
 </form> 
-        <select name="LeaveType"  class="form-control" v-model="selectedValue">
+        <select name="LeaveType"  class="form-control" >
             <option value=" "></option>
             <option value="DISTAUTOG">DISTAUTOG</option>
             <option value="DEVSPFIC">DEVSPFIC</option>
@@ -133,6 +133,8 @@ export default {
                 .catch(function (error) {
                     currentObj.output = error;
                 });
+        
+        
     },
     mounted() {
           

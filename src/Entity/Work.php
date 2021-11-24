@@ -46,9 +46,9 @@ abstract Class Work
     private $crew;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable = true)
      */
-    private $status;
+    private $status="new";
 
     
 

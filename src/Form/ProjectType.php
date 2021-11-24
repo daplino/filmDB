@@ -29,6 +29,7 @@ class ProjectType extends AbstractType
 
         $builder
             ->add('id')
+            ->add('reference')
             ->add('action', EntityType::class, array(
                 'class' => Action::class,
                 'choice_label'  => 'code',
@@ -51,6 +52,7 @@ class ProjectType extends AbstractType
                     '1' => 1,
                     '2' => 2
             ]])
+            ->add('company', CompanyType::class)
             ->add('status')
             ->add(
                 'activities',

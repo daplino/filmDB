@@ -11,8 +11,7 @@ $(document).ready(function ($) {
     $collectionHolder.find('tbody>tr').each(function () {
         addRemoveButton($(this));
     });
-    $length=$collectionHolder.find('tbody').find('tr').length;
-    console.log($collectionHolder.find('tbody').find('tr').length);
+    
     $addNewItem.click(function (e) {
         e.preventDefault();
         addNewForm();
@@ -28,6 +27,7 @@ function addNewForm() {
     newForm = newForm.replace(/__name__/g, index);
     $collectionHolder.data('index', index+1);
     var $panel = $('<tr></tr>').append(newForm);
+    addRemoveButton($panel);
     $collectionHolder.find('tbody').append($panel);
 
 }
@@ -37,7 +37,7 @@ function addNewForm() {
  * @param $panel
  */
 function addRemoveButton ($panel) {
-    var $removeButton = $('<a class="fas fa-trash-alt" >');
+    var $removeButton = $('<span style="color: Tomato;"><a href="#"><i class="fas fa-trash-alt " style="color: Tomato;"></i></span>');
     var $panelBody = $('<td style="width: 5%; padding:0 !important;"></td>').append($removeButton);
     $removeButton.click(function (e) {
         e.preventDefault();
@@ -48,7 +48,7 @@ function addRemoveButton ($panel) {
     $panel.append($panelBody);
 }
 
-action.onchange = function() {
+/*action.onchange = function() {
     $collectionHolder.find('tbody').html("");
     action_val = this.value;
     loadconfig(action_val);
@@ -61,7 +61,7 @@ action.onchange = function() {
     } 
     else {
       autocomplete_results.innerHTML = '';
-    }*/
+    }
   }
 
 function loadconfig(input_val) {
@@ -91,5 +91,5 @@ function loadconfig(input_val) {
           }
       });
   
-  }
+  }*/
   

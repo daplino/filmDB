@@ -13,7 +13,7 @@ class ActivityType extends AbstractType
     {
         $builder
         ->add('id' )
-        ->add('work', WorkType::class)   
+        ->add('work', WorkType::class)  
         ->add('type' )   
         ;
     }

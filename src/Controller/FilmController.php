@@ -60,7 +60,9 @@ class FilmController extends AbstractController
      * @Route("/film", name="film")
      */
     public function index(Request $request, PaginatorInterface $paginator, WorkRepository $repository)
-    {
+    {       
+        
+        
         $searchData = new SearchWork();
         $searchForm = $this->createForm(SearchWorkType::class, $searchData);
         
@@ -72,11 +74,24 @@ class FilmController extends AbstractController
             $request->query->getInt('page', 1),
             25
             );
-        return $this->render('film/index.html.twig', [
-            'controller_name' => 'FilmController',
-            'works' => $works,
-            'searchForm' => $searchForm->createView()
-        ]);
+
+        if($request->query->get('id')){
+                $dossier = $request->query->get('id');
+                return $this->render('film/index.html.twig', [
+                    'controller_name' => 'FilmController',
+                    'works' => $works,
+                    'searchForm' => $searchForm->createView(),
+                    'dossier' => $dossier,
+                ]);
+            }
+        else {
+            return $this->render('film/index.html.twig', [
+                'controller_name' => 'FilmController',
+                'works' => $works,
+                'searchForm' => $searchForm->createView()
+            ]);
+        }
+        
     }
     
     
@@ -87,7 +102,8 @@ class FilmController extends AbstractController
     *  @Route("/film/new", name="film_create")
     */
     public function create(Work $work = null, Request $request, ObjectManager $manager) {
-        
+
+        $dossier = $request->query->get('id');
 
         if($work != null){
             $worktype = $work->getType();
@@ -101,21 +117,25 @@ class FilmController extends AbstractController
         $form = $this->createForm(WorkType::class, $work, array(
             'workType' => $worktype,
         ));
-
-        
         
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
-        $manager->persist($work);
-        $manager->flush();
+            $manager->persist($work);
+            $manager->flush();
 
+            if($dossier){
+
+                return $this->redirectToRoute('project_add_work', [ 'id' => $dossier , 'work' => $work->getId() ]);
+            }
+
+            return $this->redirectToRoute('film');
         }
        
-        return $this->render('film/create.html.twig', [
-            'form' => $form->createView()
-        ]);
+    return $this->render('film/create.html.twig', [
+        'form' => $form->createView()
+    ]);
     }
 
      /**
@@ -124,11 +144,11 @@ class FilmController extends AbstractController
     public function detail(Request $request, Work $work, ActivityRepository $activities)
     {
 
-        $activitesAll = $activities->findByWork($work->getid());
+        $activitiesAll = $activities->findByWork($work->getid());
         return $this->render('film/view.html.twig', [
             'controller_name' => 'FilmController',
             'work' => $work,
-            'activities' => $activitesAll
+            'activities' => $activitiesAll
         ]);
     }
 

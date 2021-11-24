@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Action;
 use App\Entity\Project;
 use App\Entity\Activity;
-use App\Entity\Action;
 use App\Form\ProjectType;
 use App\Form\ActivityType;
 use App\Form\SearchProjectType;
+use App\Repository\WorkRepository;
 use App\Entity\Config\ConfigProject;
 use App\Entity\Search\SearchProject;
+use App\Repository\ActionRepository;
+use App\Repository\CompanyRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,27 +55,66 @@ class ProjectController extends AbstractController
     *  @Route("/project/new", name="project_create")
     *  @Route("/project/{id}/edit", name="project_edit")
     */
-    public function create(Project $project = null, Request $request, ObjectManager $manager) {
+    public function create(Project $project = null, Request $request, ObjectManager $manager, CompanyRepository $companyRepository, ActionRepository $actionRepository) {
 
         if($project != null){
+            dump($project);
         }
+
         else{
+            
             $project = new Project;
+            $project->setStatus('new');
+            $company = $companyRepository->findAll();
+            $project->setCompany($company[1]);
+            $action = $actionRepository->findAll();
+            $project->setAction($action[1]);
+            $manager->persist($project);
+            $manager->flush();
            
-           dump($project);
         }
  
         $form = $this->createForm(ProjectType::class, $project);
-       
+        dump($project);
         $form->handleRequest($request);
         
         if($form->isSubmitted() ){
-
-            dump('dedans');
         $manager->persist($project);
         $manager->flush();
 
-        }      
+        }    
+        return $this->render('project/create.html.twig', [
+            'form' => $form->createView(),
+            'projectid' => $project->getId()
+        ]);
+    }
+
+    /**
+    *  
+    *  @Route("/project/{id}/add/{work}", name="project_add_work")
+    */
+    public function addWork(Project $project = null, Request $request, ObjectManager $manager, WorkRepository $repository) {
+
+        if($project != null){
+            $type = "Admission";
+            $currentWork = $repository->findOneById($request->attributes->get('work'));
+            $activity = new Activity();
+            $activity->setWork($currentWork);
+            $activity->setType($type);  
+            $project->addActivity($activity);
+            $manager->persist($project);
+            $manager->flush();
+            return $this->redirectToRoute('project_edit', [ 'id' => $project->getId(), 'project' => $project]);
+
+        }
+
+        else{
+            
+            
+           
+        }
+ 
+        
         return $this->render('project/create.html.twig', [
             'form' => $form->createView()
         ]);
@@ -147,7 +189,7 @@ class ProjectController extends AbstractController
  
     $json = $request->getContent();
     $post = $serializer->deserialize($json, Project::class, 'json');
-    
+    dump($post);
     $post->setAction($em->getRepository(Action::class)->find($post->getAction()->getCode(),null,null));
 
     $em->persist($post);

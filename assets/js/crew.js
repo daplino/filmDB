@@ -1,6 +1,7 @@
 import $ from 'jquery';
 var $collectionHolder;
 var $addNewItem = $('<a href="#" class="btn btn-info">Add new item</a>');
+var sumVal;
 
 // when the page is loaded and ready
 $(document).ready(function ($) {
@@ -18,6 +19,8 @@ $(document).ready(function ($) {
         // inside the function we create a footer and remove link and append them to the panel
         // more informations in the function inside
         addRemoveButton($(this));
+        calcTotal();
+        
     });
     // handle the click event for addNewItem
     $addNewItem.click(function (e) {
@@ -28,6 +31,11 @@ $(document).ready(function ($) {
         // and by form we mean a new panel which contains the form
         addNewForm();
     })
+
+    $('.points').change(function() {
+       
+        calcTotal();
+    });
 });
 
 
@@ -85,3 +93,18 @@ function addRemoveButton ($panel) {
     // append the footer to the panel
     $panel.append($panelBody);
 }
+/*
+ * calculate total
+ */
+function calcTotal() {
+var table = document.getElementById("crew_list_table"),
+        sumVal = 0;
+        console.log("test"+table.rows.length); 
+      for (var i = 1; i < table.rows.length; i++) {
+        sumVal = sumVal + parseFloat(table.rows[i].cells[6].children[0].value);
+        console.log("test"+table.rows[i].cells[6].children[0].value); 
+      };
+      
+      document.getElementById("val").innerHTML = "Total = " + sumVal;
+      console.log(sumVal);
+    }

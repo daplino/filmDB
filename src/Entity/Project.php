@@ -21,6 +21,7 @@ class Project
      */
     private $id;
 
+   
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist", "remove"})
      */
@@ -53,7 +54,7 @@ class Project
     private $status="new";
 
     /**
-     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="project", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="project", cascade={"persist"})
      * @ORM\JoinColumn(name="company", referencedColumnName="id", nullable=true)
      */
     private $company;
@@ -189,6 +190,18 @@ class Project
     public function setDecision(?string $decision): self
     {
         $this->decision = $decision;
+
+        return $this;
+    }
+
+    public function getSepId(): ?string
+    {
+        return $this->sep_id;
+    }
+
+    public function setSepId(?string $sep_id): self
+    {
+        $this->sep_id = $sep_id;
 
         return $this;
     }

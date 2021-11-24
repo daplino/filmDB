@@ -86,28 +86,7 @@ class Company
         return $this;
     }
 
-    public function addProject(Project $project): self
-    {
-        if (!$this->project->contains($project)) {
-            $this->project[] = $project;
-            $project->setCompany($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProject(Project $project): self
-    {
-        if ($this->project->contains($project)) {
-            $this->project->removeElement($project);
-            // set the owning side to null (unless already changed)
-            if ($project->getCompany() === $this) {
-                $project->setCompany(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getCountry(): ?Country
     {
@@ -129,6 +108,29 @@ class Company
     public function setPic(int $pic): self
     {
         $this->pic = $pic;
+
+        return $this;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->project->contains($project)) {
+            $this->project[] = $project;
+            $project->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->project->contains($project)) {
+            $this->project->removeElement($project);
+            // set the owning side to null (unless already changed)
+            if ($project->getCompany() === $this) {
+                $project->setCompany(null);
+            }
+        }
 
         return $this;
     }

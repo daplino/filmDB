@@ -8,7 +8,7 @@
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.gender, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.nationality, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.person.residence, {'attr': {'class': 'form-control-sm'}}) }}</td>
-                        {% if is_granted('ROLE_EACEA') %}<td style='width: 5%; padding:0 !important;'>{{ form_widget(row.points, {'attr': {'class': 'form-control-sm'}}) }}</td>{% endif %}
+                        {% if is_granted('ROLE_EACEA') %}<td style='width: 5%; padding:0 !important;'>{{ form_widget(row.points, {'attr': {'class': 'form-control-sm points'}}) }}</td>{% endif %}
                         
                               
  {% endmacro ligneTable %}
@@ -18,7 +18,7 @@
                         <td style='width: 20%; padding:0 !important;'>{{ form_widget(row.company.name, {'attr': {'class': 'form-control-sm'}}) }}</td>
                         <td style='width: 20%; padding:0 !important;'></td>
                         <td style='width: 5%; padding:0 !important;'></td>
-                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.share, {'attr': {'class': 'form-control-sm'}}) }}</td>
+                        <td style='width: 5%; padding:0 !important;'>{{ form_widget(row.share, {'attr': {'class': 'form-control-sm', 'click': 'calcTotal()'}}) }}</td>
  {% endmacro ligneTableProd %}
 
  {% import _self as formMacros %}
@@ -43,18 +43,22 @@
                         <th class="w-10"></th>
                     </thead>
                     <tbody>
-                   
+                    {% set sum = 0 %}
                     {% for row in form.crew %}
                     <tr name='test' }}>
-                        {{ formMacros.ligneTable(row)}}    
+                        {{ formMacros.ligneTable(row)}}
+                    
+                         
                     </tr>
                     {% endfor %}
+                     
                     </tbody>
                     <tfoot>
-                    
+                    <div id="val"></div>
                     </tfoot>
                 </table>
         </fieldset>
+        {# do loop first and assign whatever output you want to a variable #}
 
         {{ form_row(form.audience)}}
         {{ form_row(form.genres)}}
@@ -84,7 +88,7 @@
                     </tbody>
                 </table>
         </fieldset>
-        <button type="submit" class="btn btn-success"> Ajouter</button>
+        <button type="submit" class="btn btn-success"> Save</button>
         {{ form_row(form._token) }}
     {{ form_end(form, {'render_rest': false}) }}
     {% block javascripts %}
