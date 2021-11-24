@@ -162,12 +162,14 @@ class AppFixtures extends Fixture
         $user = new User();
                  $user->setUserName('Profile EULOGIN');
                  $user->setEmail('eulogin@icc.be');
+                 $user->setRoles(["ROLE_EULOGIN"]);
                  $hash = $this->encoder->encodePassword($user, '123');
                 $user->setPassword($hash);
                  $manager->persist($user);
                  $user = new User();         
                  $user->setUserName('Profile EACEA');
                  $user->setEmail('eacea@icc.be');
+                 $user->setRoles(["ROLE_EACEA"]);
                  $hash = $this->encoder->encodePassword($user, '123');
                 $user->setPassword($hash);
                  $manager->persist($user);
