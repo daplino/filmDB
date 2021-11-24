@@ -110,14 +110,13 @@ class ProjectController extends AbstractController
 
         else{
             
-            
+            //do something there
            
         }
  
         
-        return $this->render('project/create.html.twig', [
-            'form' => $form->createView()
-        ]);
+        
+        
     }
 
     /**

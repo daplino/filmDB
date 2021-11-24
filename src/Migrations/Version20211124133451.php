@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201028091141 extends AbstractMigration
+final class Version20211124133451 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,9 @@ final class Version20201028091141 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE action CHANGE code code VARCHAR(255) NOT NULL');
-        $this->addSql('ALTER TABLE company ADD CONSTRAINT FK_4FBF094F5373C966 FOREIGN KEY (country) REFERENCES country (code)');
-        $this->addSql('CREATE INDEX IDX_4FBF094F5373C966 ON company (country)');
+        $this->addSql('DROP TABLE genre_work');
+        $this->addSql('ALTER TABLE action CHANGE code code VARCHAR(25) NOT NULL');
+        $this->addSql('ALTER TABLE project CHANGE action action VARCHAR(25) DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +32,8 @@ final class Version20201028091141 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('CREATE TABLE genre_work (genre_id INT NOT NULL, work_id INT NOT NULL, INDEX IDX_E8A3B170BB3453DB (work_id), INDEX IDX_E8A3B1704296D31F (genre_id), PRIMARY KEY(genre_id, work_id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE action CHANGE code code VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci');
-        $this->addSql('ALTER TABLE company DROP FOREIGN KEY FK_4FBF094F5373C966');
-        $this->addSql('DROP INDEX IDX_4FBF094F5373C966 ON company');
+        $this->addSql('ALTER TABLE project CHANGE action action VARCHAR(255) DEFAULT NULL COLLATE utf8mb4_unicode_ci');
     }
 }
